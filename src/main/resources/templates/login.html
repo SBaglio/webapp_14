@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Log in</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<header>
+    <table>
+        <td><a href="index.html"><img src="logo.png" id="logo"> </a><!--logo--></td>
+    </table>
+</header>
+<main>
+    <h1>Log In</h1>
+    <div class="container">
+        <form th:action="@{/login}" method="post">
+            <div>
+                <input type="text" name="username" placeholder="Username"/>
+            </div>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Password" pattern="(?='id_14').{8,}"
+                       title="Deve contenere la stringa 'id_14' e almeno 8 o piu' caratteri" required>
+            </div>
+            <input type="submit" value="Log in" />
+        </form>
+    </div>
+</main>
+
+</body>
+</html>

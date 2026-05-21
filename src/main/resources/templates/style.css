@@ -1,0 +1,62 @@
+header{
+    background-color: #a7d8f0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+body{
+    font-family: Verdana, Geneva, sans-serif;
+}
+.barra{
+    margin-right: 20px;
+}
+
+footer{
+    background-color: #f4f1ea;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.informazione{
+    margin-right: 20px;
+}
+
+main{
+    position: static;
+    margin-top: 100px;
+    width: 100%;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+button{
+    background-color: #f4f1ea;
+    font-size: 22px;
+    padding: 5px; /* Rimuove il padding per non deformarlo */
+    border-radius:8px;
+    font-weight: bold;
+}
+
+#nomelogo{
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center;     /* Centra verticalmente */
+    height: 100pv;
+}
+
+#logo{
+    height: 90px;
+}

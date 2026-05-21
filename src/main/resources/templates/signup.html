@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Gym in Tech</title>
+    <link rel="icon" type="image/png" href="logo_icon_white.png">
+
+</head>
+<body>
+<header>
+    <table style="align-self: center;>
+        <td><a href="index.html"><img src="logo.png" id="logo"> </a><!--logo--></td>
+    </table>
+</header>
+
+<main>
+<h1>Iscriviti!</h1>
+<form th:action="@{/addUser}" method = post>
+    <label for="firstName">Nome</label><br>
+    <input type="text" id="firstName" name="firstName" value="" required><br><br>
+    <label for="lastName">Cognome</label><br>
+    <input type="text" id="lastName" name="lastName" value="" required><br><br>
+    <label for="birthDate">Data di nascita</label><br>
+    <input type="text" id="birthDate" name="birthDate" placeholder="GG/MM/YYYY"
+           pattern="(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}"
+           title="Formato richiesto: GG/MM/YYYY" required>
+    <br><br>
+    <label for="email">E-mail</label><br>
+    <input type="text" id="email" name="email" value="" required><br><br>
+    <label for="username">Username</label><br>
+    <input type="text" id="username" name="username" value="" required><br><br>
+    <label for="password">Password</label><br>
+    <input type="password" id="password" name="password"
+           pattern="(?=.*id_14).{8,}"
+           title="Deve contenere la stringa 'id_14' e almeno 8 o piu' caratteri" required>
+    <br><br>
+    <label for="confirmPassword">Conferma Password</label><br>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <br><br>
+    <input type="submit" value="Registrati">
+    <input type="reset" value="Reset" />
+</form>
+
+<div id="message">
+    <h3>La password deve contenere:</h3>
+    <p id="letter" class="invalid">La seguente stringa: <b> id_14 </b></p>
+    <p id="length" class="invalid">Minimo <b>8 caratteri</b></p>
+</div>
+</main>
+<script>
+    var myInput = document.getElementById("password");
+    var letter = document.getElementById("letter");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+        // Validate pattern
+        //var idPattern = "id_14";
+        if(myInput.value.includes("id_14")) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate length
+        if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+</script>
+</body>
+</html>
