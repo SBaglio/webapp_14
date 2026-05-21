@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym in Tech</title>
+</head>
+<body>
+<header>
+    <table>
+        <td><img src="logo.png" id="logo"> <!--logo--></td>
+    </table>
+
+    <nav class="barra">
+        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
+        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+    </nav>
+</header>
+
+<main>
+    <h1>Benvenuta <span th:text="${name}"></span>!</h1>
+    <p>Allenamenti gratuiti usufruiti: </p>
+
+    <div class="container">
+
+    </div>
+</main>
+
+<footer>
+    <table>
+        <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+        <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+        <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+    </table>
+</footer>
+
+</body>
+</html>

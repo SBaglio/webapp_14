@@ -1,5 +1,5 @@
 header{
-    background-color: #a7d8f0;
+    background-color: #3e6f8e;
     position: fixed;
     top: 0;
     left: 0;
@@ -24,15 +24,38 @@ footer{
     width: 100%;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
+
+footer table{
+    width: 100%;
+    text-align: center;
+}
+
+footer table td{
+    width: 33.33%;
+    text-align: center;
+}
+
+input {
+    width: 40%;
+    padding: 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    background-color: #f4f1ea;
+    font-size: large;
+}
+
+label {
+    height: 10px;
 }
 
 .informazione{
     margin-right: 20px;
 }
 
-main{
+main {
     position: static;
     margin-top: 100px;
     width: 100%;
@@ -59,4 +82,14 @@ button{
 
 #logo{
     height: 90px;
+}
+
+
+.invio{
+    background-color: #3e6f8e;
+    width: 15%;
+    color: #f4f1ea;
+    font-weight: bold;
+    font-size: large;
+
 }
