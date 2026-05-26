@@ -93,3 +93,97 @@ button{
     font-size: large;
 
 }
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* GRIGLIA A 3 COLONNE */
+.layout {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    width: 100%;
+
+    margin-top: 40px;
+
+    align-items: start;
+}
+
+/* SINISTRA */
+.gestione {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    justify-self: start;
+}
+
+/* CENTRO */
+.scheda {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    justify-self: center; 
+}
+
+/* DESTRA */
+.destra {
+    justify-self: end; 
+}
+
+
+/* SEZIONE RECENSIONI */
+.recensioni {
+    width: 70%;
+    margin: 80px auto;
+    text-align: center;
+}
+
+/* FORM */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-bottom: 30px;
+}
+
+.form input,
+.form textarea,
+.form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* BUTTON */
+.form button {
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* CAROSELLO */
+.carousel {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+/* CARD RECENSIONE */
+.card {
+    min-width: 200px;
+    background: #f3f4f6;
+    padding: 15px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
