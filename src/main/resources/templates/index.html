@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gym in Tech</title>
-    <link rel="icon" type="image/png" href="logoBlu.png">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
 
 </head>
 <body>
 <header>
     <table>
-        <td><img src="logo.png" id="logo"> <!--logo--></td>
+        <td><img th:src="@{/images/logo.png}" id="logo"> <!--logo--></td>
     </table>
 
     <nav class="barra">
-        <a href="signup.html"><button type="button" class="registrazione">Registrati</button></a>
-        <a href="login.html"><button type="button" class="allenamento">Inizia allenamento</button></a>
-        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+        <a th:href="@{/signup}"><button type="button" class="registrazione">Registrati</button></a>
+        <a th:href="@{/login}"><button type="button" class="allenamento">Inizia allenamento</button></a>
+        <a th:href="@{/contattaci}"><button type="button" class="contattaci">Contattaci</button></a>
     </nav>
 </header>
 
 <main>
     <div id="nomelogo">
-        <img src="logo0.png"> <!--logo-->
+        <img th:src="@{/images/logo0.png}"> <!--logo-->
     </div>
     <p id="descrizione">descrizione</p>
     <img src="struttura.jpg"> <!--immagine-->
