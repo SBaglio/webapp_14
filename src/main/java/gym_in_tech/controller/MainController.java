@@ -1,12 +1,18 @@
 package gym_in_tech.controller;
 
-public class MainController {
-    private final UserRepository userRepository;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-    @Autowired
-    MainController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+public class MainController {
+//    private final UserRepository userRepository;
+//
+//    @Autowired
+//    MainController(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
 
     // Home page
     @GetMapping("/index")
@@ -32,29 +38,29 @@ public class MainController {
         return "signup";
     }
 
-    // Dashboards
-    @GetMapping("/userDashboard")
-    public String userDashboard(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
-        return "userDashboard";
-    }
-
-    @GetMapping("/adminDashboard")
-    public String adminDashboard(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
-        return "adminDashboard";
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboard(Authentication authentication) {
-        String returnPage;
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            returnPage = "forward:adminDashboard";
-        } else {
-            returnPage = "forward:userDashboard";
-        }
-        return returnPage;
-    }
+//    // Dashboards
+//    @GetMapping("/userDashboard")
+//    public String userDashboard(Authentication authentication, Model model) {
+//        model.addAttribute("name", authentication.getName());
+//        return "userDashboard";
+//    }
+//
+//    @GetMapping("/adminDashboard")
+//    public String adminDashboard(Authentication authentication, Model model) {
+//        model.addAttribute("name", authentication.getName());
+//        return "adminDashboard";
+//    }
+//
+//    @GetMapping("/dashboard")
+//    public String dashboard(Authentication authentication) {
+//        String returnPage;
+//        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+//            returnPage = "forward:adminDashboard";
+//        } else {
+//            returnPage = "forward:userDashboard";
+//        }
+//        return returnPage;
+//    }
 
     // Logging out
     @GetMapping("/logout")
