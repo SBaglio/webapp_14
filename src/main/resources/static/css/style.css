@@ -9,9 +9,13 @@ header{
     justify-content: space-between;
     align-items: center;
 }
+
 body{
     font-family: Verdana, Geneva, sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
 .barra{
     margin-right: 20px;
 }
@@ -31,7 +35,7 @@ footer table{
     text-align: center;
 }
 
-footer table td{
+footer table tr td{
     width: 33.33%;
     text-align: center;
 }
@@ -91,25 +95,14 @@ button{
     color: #f4f1ea;
     font-weight: bold;
     font-size: large;
-
-}
-
-
-body {
-    margin: 0;
-    padding: 0;
 }
 
 /* GRIGLIA A 3 COLONNE */
 .layout {
     display: grid;
-
     grid-template-columns: 1fr 1fr 1fr;
-
     width: 100%;
-
     margin-top: 40px;
-
     align-items: start;
 }
 
@@ -118,7 +111,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-
     justify-self: start;
 }
 
@@ -127,7 +119,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-
     justify-self: center; 
 }
 
@@ -149,7 +140,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-
     margin-bottom: 30px;
 }
 
@@ -186,4 +176,32 @@ body {
     padding: 15px;
     border-radius: 10px;
     flex-shrink: 0;
+}
+
+.funzioni{
+    position: relative;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.funzioni table{
+    width: 100%;
+}
+
+.funzioni table tr td{
+    width: 33.33%;
+}
+
+.listaUtenti{
+    text-align: left;
+}
+
+.utentiScaduti{
+    text-align: center;
+}
+.statistiche
+{
+    text-align: right;
 }

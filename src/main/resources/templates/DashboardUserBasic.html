@@ -22,16 +22,47 @@
 <main>
     <h1>Benvenuta <span th:text="${name}"></span>!</h1>
 
-    <div class="container">
-        <form ></form>
+    <div class="layout">
+        <div class="gestione">
+            <a href="profilo.html"><button type="button" class="profilo">Profilo</button></a>
+            <a href="cambioPassword.html"><button type="button" class="cambioPassword">Cambio password</button></a>
+            <a href="update.html"><button type="button" class="update">Update</button></a>
+        </div>
+
+        <div class="scheda">
+            <a href="allenamento.html"><button type="button" class="allenamento">Allenamento</button></a>
+            <button type="button" class="statisticheUser">Statistiche</button>
+        </div>
+    </div><br><br>
+
+    <div class="recensione">
+        <h2>Recensioni</h2>
+
+        <!-- FORM RECENSIONE -->
+        <div>
+            <div class="">
+                <textarea id="testo" placeholder="Scrivi la tua recensione"></textarea>
+            </div>
+
+            <button onclick="inviaRecensione()">
+                Inserisci recensione
+            </button>
+        </div>
+
+        <!-- CAROSELLO BOOTSTRAP -->
+        <div id="carousel" class="carousel">
+            <!-- recensioni dinamiche -->
+        </div>
     </div>
 </main>
 
 <footer>
     <table>
-        <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
-        <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
-        <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
     </table>
 </footer>
 
