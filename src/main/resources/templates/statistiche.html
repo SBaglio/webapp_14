@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym in Tech</title>
+    <link rel="icon" type="image/png"th:href="@{/images/logoBlu.png}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+</head>
+
+<body>
+<header>
+    <table>
+        <td><img src="../static/images/logo.png" id="logo"> <!--logo--></td>
+    </table>
+
+    <nav class="barra">
+        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
+        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+    </nav>
+</header>
+
+<main>
+<h1 style="text-align:center;">Statistiche Programmi di Allenamento</h1>
+
+    <div class="container-statistiche">
+
+        <div class="roleUserBasic">
+            <h2>Piani Utenti BASIC</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Programma</th>
+                        <th>Media Allenamenti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="stat : ${statisticheBasic}">
+                        <td th:text="${stat.nomeProgramma}">Nome Programma</td>
+                        <td th:text="${stat.mediaAllenamenti}">0.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="roleUserPro">
+            <h2>Piani Utenti PRO</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Programma</th>
+                        <th>Media Allenamenti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="stat : ${statistichePro}">
+                        <td th:text="${stat.nomeProgramma}">Nome Programma</td>
+                        <td th:text="${stat.mediaAllenamenti}">0.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>   
+</main>
+
+<footer>
+    <table>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
+    </table>
+</footer>
+
+</body>
+</html>

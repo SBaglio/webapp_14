@@ -201,7 +201,29 @@ button{
 .utentiScaduti{
     text-align: center;
 }
+
 .statistiche
 {
     text-align: right;
+}
+
+.container-statistiche {
+    display: flex;
+    justify-content: space-between; /* Mette un div a sinistra e uno a destra */
+    width: 100%;
+    gap: 20px; /* Spazio di sicurezza tra i due blocchi */
+}
+.roleUserBasic, .roleUserPro {
+    flex: 1; /* Fa in modo che i due blocchi abbiano la stessa larghezza */
+    text-align: center;
+}
+
+.roleUserBasic table,.roleUserPro table{
+    width: 100%;
+    text-align: center;
+}
+
+.roleUserBasic table td,.roleUserPro table td{
+    width: 50%;
+    text-align: center;
 }

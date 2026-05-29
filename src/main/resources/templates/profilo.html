@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,31 +7,45 @@
 	<link rel="icon" type="image/png"th:href="@{/images/logoBlu.png}">
 	<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
 </head>
-<body>
-	<!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Profilo</title>
-</head>
 
 <body>
-	<h1>Il tuo profilo</h1>
+    <header>
+        <table>
+            <td><img th:src="@{/images/logo.png}" id="logo"> <!--logo--></td>
+        </table>
 
-	<p><strong>Nome:</strong> <span th:text="${utente.nome}"></span></p>
+        <nav class="barra">
+            <a th:href="@{/contattaci}"><button type="button" class="contattaci">Contattaci</button></a>
+            <a th:href="@{/logout}"><button type="button" class="logout">Logout</button></a>
+        </nav>
+    </header>
 
-	<p><strong>Cognome:</strong> <span th:text="${utente.cognome}"></span></p>
+    <main>
+        <h1>Il tuo profilo</h1>
 
-	<p><strong>Data di nascita:</strong> <span th:text="${utente.dataNascita}"></span></p>
+	    <p><strong>Nome:</strong> <span th:text="${utente.nome}"></span></p>
 
-	<p><strong>Ruolo:</strong> <span th:text="${utente.ruolo}"></span></p><br>
+	    <p><strong>Cognome:</strong> <span th:text="${utente.cognome}"></span></p>
 
-	<a href="dashboard.html">
-	    <button type="button">Torna alla dashboard</button>
-	</a>
-</body>
+	    <p><strong>Data di nascita:</strong> <span th:text="${utente.dataNascita}"></span></p>
 
-</html>
+	    <p><strong>Ruolo:</strong> <span th:text="${utente.ruolo}"></span></p><br>
+
+        <a href="dashboard.html">
+            <button type="button">Torna alla dashboard</button>
+        </a>
+    </main>
+
+    <footer>
+        <table>
+            <tr>
+                <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+                <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+                <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+            </tr>
+        </table>
+    </footer>
+
+
 </body>
 </html>
