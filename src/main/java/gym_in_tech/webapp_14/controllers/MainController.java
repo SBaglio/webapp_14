@@ -2,7 +2,7 @@ package gym_in_tech.webapp_14.controllers;
 
 import gym_in_tech.webapp_14.pojos.User;
 import gym_in_tech.webapp_14.repositories.UserRepository;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -59,7 +59,7 @@ public class MainController {
             model.addAttribute("username", username);
             returnPage = "signupFailure";
         } else {
-            userRepository.addUser(new User(firstName, lastName, email, username, password, "ROLE_USER"));
+            userRepository.addUser(new User(firstName, lastName, email, username, password, "ROLE_USER", 0));
             model.addAttribute("username", username);
             returnPage = "registrazioneConSuccesso";
         }
@@ -72,29 +72,52 @@ public class MainController {
         return "logout";
     }
 
-//    // Dashboards
-//    @GetMapping("/userDashboard")
-//    public String userDashboard(Authentication authentication, Model model) {
-//        model.addAttribute("name", authentication.getName());
-//        return "userDashboard";
-//    }
-//
-//    @GetMapping("/adminDashboard")
-//    public String adminDashboard(Authentication authentication, Model model) {
-//        model.addAttribute("name", authentication.getName());
-//        return "adminDashboard";
-//    }
-//
-//    @GetMapping("/dashboard")
-//    public String dashboard(Authentication authentication) {
-//        String returnPage;
-//        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-//            returnPage = "forward:adminDashboard";
-//        } else {
-//            returnPage = "forward:userDashboard";
-//        }
-//        return returnPage;
-//    }
+    //Dashboards
+
+    @GetMapping("/dashboard")
+    public String dashboard(Authentication authentication) {
+        String returnPage;
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            returnPage = "forward:DashboardAdmin";
+        } else if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_PROVA"))){
+            returnPage = "forward:DashboardUserProva";
+        } else if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_BASIC"))){
+            returnPage = "forward:DashboardUserBasic";
+        } else {
+            returnPage = "forward:DashboardUserPro";
+        }
+        return returnPage;
+    }
+
+    @GetMapping("/DashboardUserProva")
+    public String dashboardUserProva(Authentication authentication, Model model) {
+        String name= authentication.getName();
+        model.addAttribute("name", name);
+        int  usufruiti= userRepository.userContaAllenamenti(name);
+        model.addAttribute("allenamentiUsufruiti", usufruiti);
+        return "DashboardUserProva";
+    }
+
+    @GetMapping("/DashboardUserBasic")
+    public String dashBoardUserBasic(Authentication authentication, Model model){
+        String name= authentication.getName();
+        model.addAttribute("name", name);
+        return "DashboardUserBasic";
+    }
+
+    @GetMapping("/DashboardUserPro")
+    public String dashBoardUserPro(Authentication authentication, Model model){
+        String name= authentication.getName();
+        model.addAttribute("name", name);
+        return "DashboardUserPro";
+    }
+
+    @GetMapping("/DashboardAdmin")
+    public String dashboardAdmin(Authentication authentication, Model model) {
+        model.addAttribute("name", authentication.getName());
+        return "DashboardAdmin";
+    }
+
 
 
 }

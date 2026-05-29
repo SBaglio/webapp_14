@@ -9,6 +9,7 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private int allenamentiUsufruiti;
 
     public User() {
         this.id = 0;
@@ -18,9 +19,10 @@ public class User {
         this.username = "";
         this.password = "";
         this.role = "";
+        this.allenamentiUsufruiti=0;
     }
 
-    public User(String firstName, String lastName, String email, String username, String password, String role) {
+    public User(String firstName, String lastName, String email, String username, String password, String role, int allenamentiUsufruiti) {
         this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,6 +30,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.allenamentiUsufruiti= allenamentiUsufruiti;
     }
 
     public int getId() {return id;}
@@ -38,6 +41,10 @@ public class User {
     public String getPassword() {return password;}
     public String getRole() {return role;}
 
+    public int getAllenamentiUsufruiti() {
+        return allenamentiUsufruiti;
+    }
+
     public void setId(int id) {this.id = id;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
@@ -45,4 +52,8 @@ public class User {
     public void setUsername(String username) {this.username = username;}
     public void setPassword(String password) {this.password = password;}
     public void setRole(String role) {this.role = role;}
+
+    public void setAllenamentiUsufruiti(int allenamentiUsufruiti) {
+        this.allenamentiUsufruiti = allenamentiUsufruiti;
+    }
 }
