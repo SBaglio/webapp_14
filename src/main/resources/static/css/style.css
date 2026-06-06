@@ -227,3 +227,42 @@ button{
     width: 50%;
     text-align: center;
 }
+
+#message {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    background: #f4f1ea;
+    max-width: 360px;
+}
+#message h3 { margin: 0 0 0.5rem; font-size: 0.95rem; }
+#message p  { margin: 0.25rem 0; font-size: 0.9rem; }
+.valid   { color: green; }
+.invalid { color: red; }
+#confirm-msg { font-size: 0.85rem; margin-top: 0.3rem; }
+
+/* Card piano selezionata */
+.piano-card-label { cursor: pointer; height: 100%; }
+.piano-card-label .card {
+    border: 2px solid #dee2e6;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+.piano-card-label input[type="radio"] { display: none; }
+.piano-card-label input[type="radio"]:checked ~ .card {
+    border-color: #3e6f8e;
+    box-shadow: 0 0 0 3px rgba(13,110,253,.2);
+}
+.piano-card-label:hover .card {
+    border-color: #adb5bd;
+}
+
+.piani-container {
+    max-width: 900px;
+    margin: 0 auto;
+}

@@ -19,9 +19,7 @@ public class UserRepository {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRepository(JdbcTemplate jdbc,
-                          UserDetailsManager userDetailsManager,
-                          PasswordEncoder passwordEncoder) {
+    public UserRepository(JdbcTemplate jdbc, UserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
         this.jdbc = jdbc;
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
@@ -48,7 +46,7 @@ public class UserRepository {
 
     @Transactional
     public void addUser(User user) {
-        String sql = "INSERT INTO USERDATA VALUES (DEFAULT, ?, ?, ?, ?)";
+        String sql = "INSERT INTO USERDATA VALUES (DEFAULT, ?, ?, ?,?, ?)";
         jdbc.update(sql,
                 user.getUsername(),
                 user.getFirstName(),

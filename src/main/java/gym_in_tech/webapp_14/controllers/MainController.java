@@ -49,17 +49,19 @@ public class MainController {
     @PostMapping("/addUser")
     public String addUser(@RequestParam String firstName,
                           @RequestParam String lastName,
+                          @RequestParam String birthDate,
                           @RequestParam String email,
                           @RequestParam String username,
                           @RequestParam String password,
+                          @RequestParam String piano,
                           Model model) {
+
         String returnPage;
         if (userRepository.userExists(username)) {
-            System.out.println("User already exists");
-            model.addAttribute("username", username);
-            returnPage = "signupFailure";
+            model.addAttribute("errorMessage", "Username '" + username + "' già in uso. Scegline un altro.");
+            returnPage = "signup";
         } else {
-            userRepository.addUser(new User(firstName, lastName, email, username, password, "ROLE_USER", 0));
+            userRepository.addUser(new User(firstName, lastName, birthDate, email, username, password, piano, 0));
             model.addAttribute("username", username);
             returnPage = "registrazioneConSuccesso";
         }
