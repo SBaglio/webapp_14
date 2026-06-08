@@ -61,7 +61,7 @@ public class MainController {
             model.addAttribute("errorMessage", "Username '" + username + "' già in uso. Scegline un altro.");
             returnPage = "signup";
         } else {
-            userRepository.addUser(new User(firstName, lastName, birthDate, email, username, password, piano, 0));
+            userRepository.addUser(new User(firstName, lastName, birthDate, email, username, password, piano));
             model.addAttribute("username", username);
             returnPage = "registrazioneConSuccesso";
         }

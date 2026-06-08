@@ -5,32 +5,38 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
+    private String birthDate;
     private String email;
     private String username;
     private String password;
     private String role;
+    private boolean enabled;
     private int allenamentiUsufruiti;
 
     public User() {
         this.id = 0;
         this.firstName = "";
         this.lastName = "";
+        this.birthDate= "";
         this.email = "";
         this.username = "";
         this.password = "";
         this.role = "";
+        this.enabled= true;
         this.allenamentiUsufruiti=0;
     }
 
-    public User(String firstName, String lastName, String email, String username, String password, String role, int allenamentiUsufruiti) {
+    public User(String firstName, String lastName, String birthDate, String email, String username, String password, String role) {
         this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthDate=birthDate;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.allenamentiUsufruiti= allenamentiUsufruiti;
+        this.enabled = true;
+        this.allenamentiUsufruiti= 0;
     }
 
     public int getId() {return id;}
@@ -40,7 +46,8 @@ public class User {
     public String getUsername() {return username;}
     public String getPassword() {return password;}
     public String getRole() {return role;}
-
+    public String getBirthDate() {return birthDate;}
+    public boolean isEnabled() {return enabled;}
     public int getAllenamentiUsufruiti() {
         return allenamentiUsufruiti;
     }
@@ -52,8 +59,11 @@ public class User {
     public void setUsername(String username) {this.username = username;}
     public void setPassword(String password) {this.password = password;}
     public void setRole(String role) {this.role = role;}
-
+    public void setBirthDate(String birthDate) {this.birthDate=birthDate;}
     public void setAllenamentiUsufruiti(int allenamentiUsufruiti) {
         this.allenamentiUsufruiti = allenamentiUsufruiti;
     }
+    public void setEnabled(boolean enabled) {this.enabled = enabled;}
+
+
 }

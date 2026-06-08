@@ -1,5 +1,6 @@
 package gym_in_tech.webapp_14.repositories;
 
+import gym_in_tech.webapp_14.pojos.SecurityUser;
 import gym_in_tech.webapp_14.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,8 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
@@ -44,17 +47,33 @@ public class UserRepository {
         return jdbc.query(sql, userRowMapper);
     }
 
+
     @Transactional
     public void addUser(User user) {
-        String sql = "INSERT INTO USERDATA VALUES (DEFAULT, ?, ?, ?,?, ?)";
+        // Converti birthDate GG/MM/AAAA -> java.sql.Date
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        java.sql.Date sqlBirthDate = java.sql.Date.valueOf(LocalDate.parse(user.getBirthDate(), fmt));
+
+        // Data di signup
+        java.sql.Date sqlSignupDate = java.sql.Date.valueOf(LocalDate.now());
+
+        // INSERT in USERDATA (dati anagrafici)
+        String sql = "INSERT INTO USERDATA (username, firstName, lastName, birthDate, email, numAllenamenti, signupDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbc.update(sql,
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getEmail()
+                sqlBirthDate,
+                user.getEmail(),
+                user.getAllenamentiUsufruiti(),
+                sqlSignupDate
         );
+
+        // Codifica password prima di passarla a SecurityUser
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //userDetailsManager.createUser(new SecurityUser(user));
+
+        // INSERT in USERS e AUTHORITIES gestita da userDetailsManager
+        userDetailsManager.createUser(new SecurityUser(user));
     }
 
     public User getUser(String username){
@@ -88,6 +107,10 @@ public class UserRepository {
 
     }
 
+    public void disableUser(User user) {
+        jdbc.update("UPDATE USERS SET enabled = 0 WHERE username = ?", user.getUsername());
+    }
+
     public void setNumAllenamenti(User user){
         int allenamenti= userContaAllenamenti(user.getUsername());
 
@@ -95,6 +118,16 @@ public class UserRepository {
 
         String sql = "UPDATE USERDATA SET numAllenamenti = ? where username =? ";
         jdbc.update(sql, allenamenti, user.getUsername());
+    }
+
+    @Transactional
+    public void deleteUser(User user) {
+        // Eliminiamo solo da Users avendo ON DELETE CASCADE nelle altre tabelle
+        jdbc.update("DELETE FROM USERS WHERE username = ?", user.getUsername());
+    }
+
+    public void deleteDisabledUsers() {
+        jdbc.update("DELETE FROM USERS WHERE enabled = 0");
     }
 
 }
