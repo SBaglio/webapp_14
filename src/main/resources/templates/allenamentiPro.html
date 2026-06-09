@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym in Tech</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+</head>
+
+<body>
+<header>
+    <table>
+        <tr>
+            <td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"></td>
+        </tr>
+    </table>
+
+    <nav class="barra">
+        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
+        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+    </nav>
+</header>
+
+<main>
+    <h1 style="text-align:center;">Programmi di Allenamento</h1>
+    <div id="progPredefiniti">
+        <h2>Programmi predefiniti</h2>
+        <div th:each="p : ${programmiPredefiniti}" class="programma-card">
+            <div>
+                <h3 th:text="${p.nome}">Nome Programma</h3>
+                <p>Scheda ufficiale del servizio REST Programmi</p>
+            </div>
+            <a th:href="@{/allenamento/dettaglio/{nome}(nome=${p.nome})}">Vedi Dettaglio</a>
+        </div>
+    </div>
+    <div id="progPersonalizzati">
+        <h2>Programmi personalizzati</h2>
+        <div th:each="p : ${programmiPersonalizzati}" class="programma-card">
+            <div>
+                <h3 th:text="${p.nome}">Nome Programma</h3>
+                <p>Creato manualmente salvato nel DB</p>
+            </div>
+            <a th:href="@{/allenamento/dettaglio-personalizzato/{id}(id=${p.id})}">Vedi Dettaglio</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <table>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
+    </table>
+</footer>
+
+</body>
+</html>

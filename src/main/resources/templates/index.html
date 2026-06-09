@@ -11,7 +11,7 @@
 <body>
 <header>
     <table>
-        <td><img th:src="@{/images/logo.png}" id="logo"> <!--logo--></td>
+        <tr><td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"> </a><!--logo--></td></tr>
     </table>
 
     <nav class="barra">
@@ -31,9 +31,11 @@
 
 <footer>
     <table>
-        <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
-        <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
-        <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
     </table>
 </footer>
 

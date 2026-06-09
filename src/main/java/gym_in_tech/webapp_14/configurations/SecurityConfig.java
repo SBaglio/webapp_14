@@ -39,15 +39,16 @@ public class SecurityConfig {
         http.formLogin(c ->
                 c.loginPage("/login")
                         .defaultSuccessUrl("/dashboard")
-                        .failureForwardUrl("/loginFailure") //Pay attention it is a forward! So, in the Controller you should use @PostMapping
+                        .failureUrl("/login?error=true")
         );
 
         // Authorization
         http.authorizeHttpRequests(c ->
-                c.requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/userDashboard").hasRole("USER")
-                        .requestMatchers("/adminDashboard").hasRole("ADMIN")
-                        .requestMatchers("/getUsers").hasRole("ADMIN")
+                c.requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER_PROVA", "USER_BASIC", "USER_PRO")
+                        .requestMatchers("/DashboardUserProva").hasRole("USER_PROVA")
+                        .requestMatchers("/DashboardUserBasic").hasRole("USER_BASIC")
+                        .requestMatchers("/DashboardUserPro").hasRole("USER_PRO")
+                        .requestMatchers("/DashboardAdmin").hasRole("ADMIN")
                         .anyRequest().permitAll()
         );
 

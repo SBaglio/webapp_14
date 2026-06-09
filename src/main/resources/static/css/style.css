@@ -266,3 +266,24 @@ button{
     max-width: 900px;
     margin: 0 auto;
 }
+
+.programma-card {
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#progPredefiniti {
+    background-color: #e3f2fd; /* Sfondo azzurrino */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+#progPersonalizzati {
+    background-color: #e8f5e9; /* Sfondo verdino */
+    padding: 20px;
+    border-radius: 10px;
+}

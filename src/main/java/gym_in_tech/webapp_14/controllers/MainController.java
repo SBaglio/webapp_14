@@ -1,7 +1,6 @@
 package gym_in_tech.webapp_14.controllers;
 
-import gym_in_tech.webapp_14.pojos.User;
-import gym_in_tech.webapp_14.repositories.UserRepository;
+import gym_in_tech.webapp_14.services.CheckUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
-    private final UserRepository userRepository;
+    private final CheckUser checkUser;
 
     @Autowired
-    MainController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    MainController(CheckUser checkUser) {
+        this.checkUser=checkUser;
     }
 
     @GetMapping("/index")
@@ -32,11 +31,6 @@ public class MainController {
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @PostMapping("/loginFailure")
-    public String loginFailure() {
-        return "loginFailure";
     }
 
 
@@ -57,11 +51,11 @@ public class MainController {
                           Model model) {
 
         String returnPage;
-        if (userRepository.userExists(username)) {
+        if (checkUser.userExists(username)) {
             model.addAttribute("errorMessage", "Username '" + username + "' già in uso. Scegline un altro.");
             returnPage = "signup";
         } else {
-            userRepository.addUser(new User(firstName, lastName, birthDate, email, username, password, piano));
+            checkUser.addUser(firstName, lastName, birthDate, email, username, password, piano);
             model.addAttribute("username", username);
             returnPage = "registrazioneConSuccesso";
         }
@@ -95,7 +89,7 @@ public class MainController {
     public String dashboardUserProva(Authentication authentication, Model model) {
         String name= authentication.getName();
         model.addAttribute("name", name);
-        int  usufruiti= userRepository.userContaAllenamenti(name);
+        int  usufruiti= checkUser.userContaAllenamenti(name);
         model.addAttribute("allenamentiUsufruiti", usufruiti);
         return "DashboardUserProva";
     }

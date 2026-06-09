@@ -10,6 +10,7 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private String signupDate;
     private boolean enabled;
     private int allenamentiUsufruiti;
 
@@ -22,6 +23,7 @@ public class User {
         this.username = "";
         this.password = "";
         this.role = "";
+        this.signupDate="";
         this.enabled= true;
         this.allenamentiUsufruiti=0;
     }
@@ -35,6 +37,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.signupDate="";
         this.enabled = true;
         this.allenamentiUsufruiti= 0;
     }
@@ -47,6 +50,7 @@ public class User {
     public String getPassword() {return password;}
     public String getRole() {return role;}
     public String getBirthDate() {return birthDate;}
+    public String getSignupDate(){return signupDate;}
     public boolean isEnabled() {return enabled;}
     public int getAllenamentiUsufruiti() {
         return allenamentiUsufruiti;
@@ -60,6 +64,7 @@ public class User {
     public void setPassword(String password) {this.password = password;}
     public void setRole(String role) {this.role = role;}
     public void setBirthDate(String birthDate) {this.birthDate=birthDate;}
+    public void setSignupDate(String signupDate) {this.signupDate = signupDate;}
     public void setAllenamentiUsufruiti(int allenamentiUsufruiti) {
         this.allenamentiUsufruiti = allenamentiUsufruiti;
     }

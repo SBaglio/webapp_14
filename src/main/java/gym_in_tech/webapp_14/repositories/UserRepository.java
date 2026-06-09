@@ -34,6 +34,23 @@ public class UserRepository {
 
 
     public List<User> findAllUsers() {
+        String sql = """
+            SELECT u.username, a.authority, u.signupDate
+            FROM USERDATA u
+            JOIN AUTHORITIES a ON u.username = a.username
+            ORDER BY a.authority ASC, u.signupDate DESC
+            """;
+        RowMapper<User> userRowMapper = (r, i) -> {
+            User rowObject = new User();
+            rowObject.setUsername(r.getString("USERNAME"));
+            rowObject.setRole(r.getString("AUTHORITY"));
+            rowObject.setSignupDate(r.getString("SIGNUPDATE"));
+            return rowObject;
+        };
+        return jdbc.query(sql, userRowMapper);
+    }
+
+    public List<User> findDisabledUsers() {
         String sql = "SELECT * FROM USERDATA";
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();

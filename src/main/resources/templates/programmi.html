@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym in Tech</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+</head>
+
+<body>
+<header>
+    <table>
+        <tr>
+            <td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"></a></td>
+        </tr>
+    </table>
+
+    <nav class="barra">
+        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
+        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+    </nav>
+</header>
+
+<main>
+    <h1 style="text-align:center;">Inserisci Programma</h1>
+
+    <div th:if="${messaggioSuccesso != null}" class="alert-success">
+        <p th:text="${messaggioSuccesso}">✓ Inserimento andato a buon fine!</p>
+        <p><strong>Kcal associate al programma (da Servizio REST):</strong> <span th:text="${kcalCalcolate}">0</span> kcal</p>
+    </div>
+
+    <form th:action="@{/allenamento/salva}" th:object="${nuovoProgramma}" method="post">
+
+        <div class="form-group">
+            <label for="nomeProgramma">Nome del Programma:</label>
+            <input type="text" id="nomeProgramma" th:field="*{nomeProgramma}" required placeholder="Es: Definizione Estate">
+        </div>
+
+        <div class="form-group">
+            <label for="nomeEs">Nome dell'Esercizio:</label>
+            <input type="text" id="nomeEs" th:field="*{nomeEs}" required placeholder="Es: Squat, Panca Piana...">
+        </div>
+
+        <div class="form-group">
+            <label for="numSerie">Numero di Serie:</label>
+            <input type="number" id="numSerie" th:field="*{numSerie}" min="1" required placeholder="Es: 4">
+        </div>
+
+        <div class="form-group">
+            <label for="numRipetizioni">Numero di Ripetizioni:</label>
+            <input type="number" id="numRipetizioni" th:field="*{numRipetizioni}" min="1" required placeholder="Es: 10">
+        </div>
+
+        <button type="submit" class="btn-salva">Salva Programma</button>
+    </form>
+
+    <a th:href="@{/allenamenti}" class="link-indietro">Torna alla lista programmi</a>
+</main>
+
+<footer>
+    <table>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
+    </table>
+</footer>
+
+</body>
+</html>
