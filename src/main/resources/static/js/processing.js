@@ -38,7 +38,7 @@ function inviaRecensione() {
         })
     .then(listaAggiornata => {
         inputTesto.value = "";
-        renderizzaRecensioni(listaAggiornata);
+        renderizzaRecensioni(listaAggiornata);})
     .catch(error => {
         console.error("Errore nell'inserimento:", error);
         alert("Si è verificato un errore durante l'invio.");
