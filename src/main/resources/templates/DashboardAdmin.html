@@ -27,7 +27,7 @@
         <table>
             <tr>
                 <td><a th:href="@{/listaUtenti}"><button type="button" class="listaUtenti">Visualizza Lista Utenti</button></a></td>
-                <td><button type="button" class="utentiScaduti">Rimuovi utenti scaduti</button></td>
+                <td><button type="button" class="utentiScaduti" onclick="utentiScaduti()">Rimuovi utenti scaduti</button></td>
                 <td><a href="statistiche.html"><button type="button" class="statistiche">Statistiche</button></a></td>
             </tr>
         </table>
@@ -47,7 +47,29 @@
 
 <script>
     function utentiScaduti(){
-
+        if (confirm("Sei sicuro di voler eliminare definitivamente tutti gli utenti PROVA disabilitati?")) {
+            fetch('/disabilita-scaduti', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Errore nel server");
+                    }
+                })
+                .then(numeroRimossi => {
+                    alert("Operazione completata con successo \nUtenti rimossi dal database: " + numeroRimossi);
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error("Errore di rete:", error);
+                    alert("Si è verificato un errore durante l'operazione sul server.");
+                });
+        }
     }
 </script>
 

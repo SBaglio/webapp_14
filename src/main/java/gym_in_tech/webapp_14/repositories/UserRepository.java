@@ -142,8 +142,8 @@ public class UserRepository {
         jdbc.update("DELETE FROM USERS WHERE username = ?", user.getUsername());
     }
 
-    public void deleteDisabledUsers() {
-        jdbc.update("DELETE FROM USERS WHERE enabled = 0");
+    public int deleteDisabledUserProva() {
+        String sql = "DELETE FROM USERS WHERE enabled = AND username IN ( SELECT username FROM AUTHORITIES WHERE authority = 'ROLE_USER_PROVA')";
+        return jdbc.update(sql);
     }
-
 }

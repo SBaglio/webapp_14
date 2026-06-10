@@ -72,16 +72,16 @@ main {
 button{
     background-color: #f4f1ea;
     font-size: 22px;
-    padding: 5px; /* Rimuove il padding per non deformarlo */
+    padding: 5px;
     border-radius:8px;
     font-weight: bold;
 }
 
 #nomelogo{
     display: flex;
-    justify-content: center; /* Centra orizzontalmente */
-    align-items: center;     /* Centra verticalmente */
-    height: 100pv;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 }
 
 #logo{
@@ -97,7 +97,6 @@ button{
     font-size: large;
 }
 
-/* GRIGLIA A 3 COLONNE */
 .layout {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -209,12 +208,12 @@ button{
 
 .container-statistiche {
     display: flex;
-    justify-content: space-between; /* Mette un div a sinistra e uno a destra */
+    justify-content: space-between;
     width: 100%;
-    gap: 20px; /* Spazio di sicurezza tra i due blocchi */
+    gap: 20px;
 }
 .roleUserBasic, .roleUserPro {
-    flex: 1; /* Fa in modo che i due blocchi abbiano la stessa larghezza */
+    flex: 1;
     text-align: center;
 }
 
@@ -246,7 +245,6 @@ button{
 .invalid { color: red; }
 #confirm-msg { font-size: 0.85rem; margin-top: 0.3rem; }
 
-/* Card piano selezionata */
 .piano-card-label { cursor: pointer; height: 100%; }
 .piano-card-label .card {
     border: 2px solid #dee2e6;
@@ -276,14 +274,55 @@ button{
 }
 
 #progPredefiniti {
-    background-color: #e3f2fd; /* Sfondo azzurrino */
+    background-color: #e3f2fd;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
 }
 
 #progPersonalizzati {
-    background-color: #e8f5e9; /* Sfondo verdino */
+    background-color: #e8f5e9;
     padding: 20px;
     border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.salva{
+    width: 25%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.alert-success {
+    text-align: center;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.link-indietro {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
 }
