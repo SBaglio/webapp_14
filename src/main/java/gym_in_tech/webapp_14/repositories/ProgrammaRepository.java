@@ -30,9 +30,7 @@ public class ProgrammaRepository{
         RowMapper<Programma> programmaRowMapper = (r, i) -> {
             Programma rowObject = new Programma();
             rowObject.setId(r.getInt("ID"));
-            rowObject.setNomeProgramma(r.getString("NOMEPROGRAMMA"));
-            rowObject.setNomeEs(r.getString("NOMEES"));
-            rowObject.setNumSerie(r.getInt("NUMSERIE"));
+            rowObject.setNomeProg(r.getString("NOMEES"));
             rowObject.setKcal(r.getInt("KCAL"));
             return rowObject;
         };
@@ -41,11 +39,9 @@ public class ProgrammaRepository{
 
     @Transactional
     public void addPrograms(Programma programma) {
-        String sql = "INSERT INTO PROGRAMMA (NomeProgramma, NomeEs, NumSerie, Kcal) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO PROGRAMMA (NomeEs, NumSerie, Kcal) VALUES ( ?, ?, ?)";
         jdbc.update(sql,
-                programma.getNomeProgramma(),
-                programma.getNomeEs(),
-                programma.getNumSerie(),
+                programma.getNomeProg(),
                 programma.getKcal()
                 );
     }
@@ -55,9 +51,6 @@ public class ProgrammaRepository{
         RowMapper<Programma> programmaRowMapper = (r, i) -> {
             Programma rowObject = new Programma();
             rowObject.setId(r.getInt("ID"));
-            rowObject.setNomeProgramma(r.getString("NOMEPROGRAMMA"));
-            rowObject.setNomeEs(r.getString("NOMEES"));
-            rowObject.setNumSerie(r.getInt("NUMSERIE"));
             rowObject.setKcal(r.getInt("KCAL"));
             return rowObject;
         };

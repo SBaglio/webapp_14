@@ -1,32 +1,54 @@
 package gym_in_tech.webapp_14.pojos;
 
-import org.springframework.context.annotation.Bean;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Programma {
 
     private int id;
-    private String nomeProgramma;
-    private String nomeEs;
-    private int numSerie;
-    private int numRipetizioni;
-    private float kcal;
+    private String nomeProg;
+    private List<Esercizio> esercizi;
     private int numAllenamenti;
-    private String tipo;
+    private float kcal;
+
+    public Programma() {
+        this.nomeProg = "";
+        this.numAllenamenti=0;
+        this.tipo="";
+        this.kcal=0;
+        this.esercizi = new ArrayList<>();
+    }
+
+    public Programma(String nomeProg, List<Esercizio> esercizi, float kcal){
+        this.nomeProg = nomeProg;
+        this.numAllenamenti=0;
+        this.esercizi = esercizi;
+        this.kcal=kcal;
+    }
+
+    public void aggiungiEsercizio(Esercizio e) {
+        esercizi.add(e);
+    }
+
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getNomeProgramma() { return nomeProgramma; }
-    public void setNomeProgramma(String nomeProgramma) { this.nomeProgramma = nomeProgramma; }
+    public List<Esercizio> getEsercizi() {
+        return esercizi;
+    }
 
-    public String getNomeEs() { return nomeEs; }
-    public void setNomeEs(String nomeEs) { this.nomeEs = nomeEs; }
+    public void setEsercizi(List<Esercizio> esercizi) {
+        this.esercizi = esercizi;
+    }
 
-    public int getNumSerie() { return numSerie; }
-    public void setNumSerie(int numSerie) { this.numSerie = numSerie; }
+    public String getNomeProg() {
+        return nomeProg;
+    }
 
-    public int getNumRipetizioni() { return numRipetizioni; }
-    public void setNumRipetizioni(int numRipetizioni) { this.numRipetizioni = numRipetizioni; }
+    public void setNomeProg(String nomeProg) {
+        this.nomeProg = nomeProg;
+    }
 
     public float getKcal() { return kcal; }
     public void setKcal(float kcal) { this.kcal = kcal; }
@@ -34,6 +56,4 @@ public class Programma {
     public int getNumAllenamenti() { return numAllenamenti; }
     public void setNumAllenamenti(int numAllenamenti) { this.numAllenamenti = numAllenamenti; }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
 }

@@ -30,6 +30,11 @@ public class UserDashboardController {
         return "profilo";
     }
 
+    @GetMapping("/programmi")
+    public String visualizzaProgrammi(Authentication authentication, Model mode){
+        return "programmi";
+    }
+
 
 
 }

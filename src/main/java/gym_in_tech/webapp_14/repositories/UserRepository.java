@@ -36,8 +36,7 @@ public class UserRepository {
     public List<User> findAllUsers() {
         String sql = """
             SELECT u.username, a.authority, u.signupDate
-            FROM USERDATA u
-            JOIN AUTHORITIES a ON u.username = a.username
+            FROM USERDATA u JOIN AUTHORITIES a ON u.username = a.username
             ORDER BY a.authority ASC, u.signupDate DESC
             """;
         RowMapper<User> userRowMapper = (r, i) -> {
