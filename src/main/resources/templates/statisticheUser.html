@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym in Tech</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+</head>
+
+<body>
+<header>
+    <table>
+        <tr><td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"> </a><!--logo--></td></tr>
+    </table>
+
+    <nav class="barra">
+        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
+        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+    </nav>
+</header>
+
+<main>
+<h1>I Miei Progressi di Allenamento</h1>
+    <h2 th:text="'Statistiche di ' + ${name}">Statistiche Utente</h2>
+
+    <div class="box-istogramma">
+        <canvas id="istogrammaAllenamenti"></canvas>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <a th:href="@{/dashboard}" style="text-decoration: none;">
+            <button type="button" class="invio" style="width: auto; padding: 10px 20px;">
+                Torna alla Dashboard
+            </button>
+        </a>
+    </div>
+</main>
+
+<footer>
+    <table>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
+    </table>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        const datiStatistiche = [];
+
+        const canvasElement = document.getElementById('istogrammaAllenamenti');
+        const containerBox = document.querySelector('.box-istogramma');
+
+        if (!datiStatistiche || datiStatistiche.length === 0) {
+            if (canvasElement) canvasElement.style.display = 'none';
+            
+            const fallbackMessage = document.createElement('p');
+            fallbackMessage.innerText = "Non hai ancora completato alcun programma. Corri ad allenarti!";
+            fallbackMessage.style.color = "#3e6f8e";
+            fallbackMessage.style.fontStyle = "italic";
+            fallbackMessage.style.padding = "20px";
+            fallbackMessage.style.textAlign = "center";
+            
+            if (containerBox) containerBox.appendChild(fallbackMessage);
+            return;
+        }
+
+       
+        const etichetteProgrammi = datiStatistiche.map(item => item.nomeProgramma); 
+        const numeroEsecuzioni = datiStatistiche.map(item => item.conteggio); 
+
+        if (!canvasElement) return;
+
+        const ctx = canvasElement.getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', 
+            data: {
+                labels: etichetteProgrammi,
+                datasets: [{
+                    label: 'Numero di volte completato',
+                    data: numeroEsecuzioni,
+                    backgroundColor: '#3e6f8e',
+                    borderColor: '#3e6f8e',
+                    borderWidth: 2,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, 
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

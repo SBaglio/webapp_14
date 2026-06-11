@@ -339,3 +339,21 @@ label {
     color: #007bff;
     text-decoration: none;
 }
+
+box-istogramma {
+    width: 65%;    
+    height: 400px;
+    margin: 30px auto;
+    background-color: #f4f1ea;
+    padding: 20px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .box-istogramma {
+        width: 90%;
+        height: 300px;
+    }
+}
