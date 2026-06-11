@@ -61,3 +61,50 @@ function renderizzaRecensioni(listaRecensioni) {
         contenitoreCarousel.appendChild(elementoCard);
     });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const datiStatistiche = ['${statisticheUtente}'];
+
+    if (!datiStatistiche || datiStatistiche.length === 0) {
+        document.getElementById('istogrammaAllenamenti').style.display = 'none';
+        const fallbackMessage = document.createElement('p');
+        fallbackMessage.innerText = "Non hai ancora completato alcun programma. Corri ad allenarti!";
+        fallbackMessage.style.color = "#3e6f8e";
+        fallbackMessage.style.fontStyle = "italic";
+        fallbackMessage.style.padding = "20px";
+        document.querySelector('.box-istogramma').appendChild(fallbackMessage);
+        return;
+    }
+
+    const etichetteProgrammi = datiStatistiche.map(item => item.nomeProgramma); 
+    const numeroEsecuzioni = datiStatistiche.map(item => item.conteggio); 
+
+    const ctx = document.getElementById('istogrammaAllenamenti').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: etichetteProgrammi,
+            datasets: [{
+                label: 'Numero di volte completato',
+                data: numeroEsecuzioni,
+                backgroundColor: '#3e6f8e',
+                borderColor: '#3e6f8e',
+                borderWidth: 2,
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, 
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+});
