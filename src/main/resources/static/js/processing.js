@@ -60,4 +60,5 @@ function renderizzaRecensioni(listaRecensioni) {
         elementoCard.innerHTML = `<p><strong>@${recensione.username}</strong></p><p>"${recensione.recensione}"</p>`;
         contenitoreCarousel.appendChild(elementoCard);
     });
+
 }

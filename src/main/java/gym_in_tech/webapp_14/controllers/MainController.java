@@ -62,6 +62,7 @@ public class MainController {
         return returnPage;
     }
 
+
     // Logging out
     @GetMapping("/logout")
     public String logout() {

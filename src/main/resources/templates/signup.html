@@ -18,6 +18,9 @@
 
 <main>
 <h1>Iscriviti!</h1>
+    <div th:if="${errorMessage != null}"  style="width: 25%; text-align: center; margin: 0 auto;" class="alert alert-danger" >
+        <span th:text="${errorMessage}"></span>
+    </div>
 <form th:action="@{/addUser}" method = post id="registrationForm">
     <label for="firstName">Nome</label><br>
     <input type="text" id="firstName" name="firstName" value="" required><br><br>

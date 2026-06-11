@@ -146,4 +146,20 @@ public class UserRepository {
         String sql = "DELETE FROM USERS WHERE enabled = AND username IN ( SELECT username FROM AUTHORITIES WHERE authority = 'ROLE_USER_PROVA')";
         return jdbc.update(sql);
     }
+
+    public boolean checkPassword(User user, String vecchiaPassword){
+        String sql="SELECT password FROM USERs WHERE username = ? LIMIT 1";
+
+        String password = jdbc.queryForObject(sql, String.class, user.getUsername());
+
+        return password!=null && password.equals(vecchiaPassword);
+    }
+
+
+    @Transactional
+    public void cambiaPassword(User user, String nuovaPassword){
+        String hashedPassword = passwordEncoder.encode(nuovaPassword);
+
+        jdbc.update("UPDATE USERS SET password = ? WHERE username = ?", hashedPassword, user.getUsername());
+    }
 }

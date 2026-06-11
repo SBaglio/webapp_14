@@ -17,8 +17,8 @@
     </table>
 
     <nav class="barra">
-        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
-        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
+        <a th:href="@{/contattaci}"><button type="button" class="contattaci">Contattaci</button></a>
+        <a th:href="@{/logout}"><button type="button" class="logout">Logout</button></a>
     </nav>
 </header>
 
@@ -27,8 +27,8 @@
 
     <div class="layout">
         <div class="gestione">
-            <a href="profilo.html"><button type="button" class="profilo">Profilo</button></a>
-            <a href="cambioPassword.html"><button type="button" class="cambioPassword">Cambio password</button></a>
+            <a th:href="@{/profilo}"><button type="button" class="profilo">Profilo</button></a>
+            <a th:href="@{/modificaPassword}"><button type="button" class="cambioPassword">Cambio password</button></a>
         </div>
 
         <div class="scheda">

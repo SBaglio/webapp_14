@@ -17,8 +17,8 @@
     </table>
 
     <nav class="barra">
-        <a href="logout.html"><button type="button" class="logout">Logout</button></a>
-        <a href="contatti.html"><button type="button" class="contattaci">Contattaci</button></a>
+        <a th:href="@{/logout}"><button type="button" class="logout">Logout</button></a>
+        <a th:href="@{/contattaci}"><button type="button" class="contattaci">Contattaci</button></a>
     </nav>
 </header>
 
@@ -27,9 +27,44 @@
 
     <div class="layout">
         <div class="gestione">
-            <a href="profilo.html"><button type="button" class="profilo">Profilo</button></a>
-            <a href="cambioPassword.html"><button type="button" class="cambioPassword">Cambio password</button></a>
-            <a href="update.html"><button type="button" class="update">Update</button></a>
+            <a th:href="@{/profilo}"><button type="button" class="profilo">Profilo</button></a>
+            <a th:href="@{/modificaPassword}"><button type="button" class="cambioPassword">Cambio password</button></a>
+            <!-- Bottone Update -->
+            <button type="button" onclick="upgrade()">
+                Upgrade
+            </button>
+
+            <!-- Form upgrade nascosto inizialmente -->
+            <div id="upgradeForm" style="display: none;" class="mt-4">
+                <form th:action="@{/upgradePlan}" method="post">
+
+                    <div class="row row-cols-1 row-cols-md-1 g-3 mb-4">
+
+                        <!-- PRO -->
+                        <div class="col">
+                            <label class="piano-card-label d-block">
+                                <input type="radio" name="piano" value="Pro" required>
+                                <div class="card text-center">
+                                    <div class="card-header bg-warning text-dark fw-semibold">Pro</div>
+                                    <div class="card-body d-flex flex-column">
+                                        <p class="card-text text-muted flex-grow-1">
+                                            Accesso illimitato a tutti i piani di allenamento, con possibilità di creare nuovi allenamenti personalizzati!
+                                        </p>
+                                        <ul class="list-group list-group-flush mt-2">
+                                            <li class="list-group-item">Mensile: <strong>€39,99</strong></li>
+                                            <li class="list-group-item">Annuale: <strong>€399,99</strong></li>
+                                        </ul>
+                                        <span class="badge bg-warning text-dark mt-3">Premium</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" style="background-color: #3e6f8e; color:white;">Conferma Upgrade</button>
+                </form>
+            </div>
         </div>
 
         <div class="scheda">
@@ -66,6 +101,13 @@
         </tr>
     </table>
 </footer>
+
+<script>
+    function upgrade() {
+        var form = document.getElementById("upgradeForm");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+</script>
 
 </body>
 </html>
