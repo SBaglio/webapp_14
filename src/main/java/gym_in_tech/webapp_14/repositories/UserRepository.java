@@ -148,11 +148,10 @@ public class UserRepository {
     }
 
     public boolean checkPassword(User user, String vecchiaPassword){
-        String sql="SELECT password FROM USERs WHERE username = ? LIMIT 1";
+        String sql="SELECT password FROM USERS WHERE username = ?";
+        String passwordHashed = jdbc.queryForObject(sql, String.class, user.getUsername());
 
-        String password = jdbc.queryForObject(sql, String.class, user.getUsername());
-
-        return password!=null && password.equals(vecchiaPassword);
+        return passwordHashed != null && passwordEncoder.matches(vecchiaPassword, passwordHashed);
     }
 
 

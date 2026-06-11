@@ -89,8 +89,13 @@ public class UserDashboardController {
             userRepository.cambiaPassword(user, password);
         }
 
-        return "redirect:/dashboard";
+        return "redirect:/dashboard?passwordChanged=true";
     }
 
+    @GetMapping("/statisticheUser")
+    public String visualizzaStatisticheUser(Authentication authentication, Model model){
+        model.addAttribute("name", authentication.getName());
+        return "statisticheUser";
+    }
 
 }

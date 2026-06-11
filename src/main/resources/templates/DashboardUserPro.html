@@ -29,11 +29,24 @@
         <div class="gestione">
             <a th:href="@{/profilo}"><button type="button" class="profilo">Profilo</button></a>
             <a th:href="@{/modificaPassword}"><button type="button" class="cambioPassword">Cambio password</button></a>
+
+            <p id="successMsg" th:if="${param.passwordChanged}" style="color: green;">
+                Password cambiata con successo!
+            </p>
+
+            <script>
+                var msg = document.getElementById("successMsg");
+                if (msg) {
+                    setTimeout(function() {
+                        msg.style.display = "none";
+                    }, 30000); //30 secondi
+                }
+            </script>
         </div>
 
         <div class="scheda">
             <a href="allenamentiPro.html"><button type="button" class="allenamento">Allenamento</button></a>
-            <button type="button" class="statisticheUser">Statistiche</button>
+            <a th:href="@{/statisticheUser}"><button type="button" class="statisticheUser">Statistiche</button></a>
             <a href="programmi.html"><button type="button" class="programmi">Programmi</button></a>
         </div>
     </div><br><br>

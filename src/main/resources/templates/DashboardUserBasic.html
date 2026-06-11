@@ -29,6 +29,19 @@
         <div class="gestione">
             <a th:href="@{/profilo}"><button type="button" class="profilo">Profilo</button></a>
             <a th:href="@{/modificaPassword}"><button type="button" class="cambioPassword">Cambio password</button></a>
+            <p id="successMsg" th:if="${param.passwordChanged}" style="color: green;">
+                Password cambiata con successo!
+            </p>
+
+            <script>
+                var msg = document.getElementById("successMsg");
+                if (msg) {
+                    setTimeout(function() {
+                        msg.style.display = "none";
+                    }, 30000); //30 secondi
+                }
+            </script>
+
             <!-- Bottone Update -->
             <button type="button" onclick="upgrade()">
                 Upgrade
