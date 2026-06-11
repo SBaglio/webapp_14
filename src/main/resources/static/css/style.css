@@ -81,13 +81,26 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
 }
 
 #logo{
     height: 90px;
 }
 
+#descrizione{
+    color: #3e6f8e;
+    font-size: 22px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#struttura{
+    height: 500px;
+}
+
+#orari {
+    font-style: italic;
+}
 
 .invio{
     background-color: #3e6f8e;

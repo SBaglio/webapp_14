@@ -14,7 +14,6 @@ public class Programma {
     public Programma() {
         this.nomeProg = "";
         this.numAllenamenti=0;
-        this.tipo="";
         this.kcal=0;
         this.esercizi = new ArrayList<>();
     }
