@@ -46,6 +46,65 @@
         </tr>
     </table>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        const datiStatistiche = [];
+
+        const canvasElement = document.getElementById('istogrammaAllenamenti');
+        const containerBox = document.querySelector('.box-istogramma');
+
+        if (!datiStatistiche || datiStatistiche.length === 0) {
+            if (canvasElement) canvasElement.style.display = 'none';
+            
+            const fallbackMessage = document.createElement('p');
+            fallbackMessage.innerText = "Non hai ancora completato alcun programma. Corri ad allenarti!";
+            fallbackMessage.style.color = "#3e6f8e";
+            fallbackMessage.style.fontStyle = "italic";
+            fallbackMessage.style.padding = "20px";
+            fallbackMessage.style.textAlign = "center";
+            
+            if (containerBox) containerBox.appendChild(fallbackMessage);
+            return;
+        }
+
+       
+        const etichetteProgrammi = datiStatistiche.map(item => item.nomeProgramma); 
+        const numeroEsecuzioni = datiStatistiche.map(item => item.conteggio); 
+
+        if (!canvasElement) return;
+
+        const ctx = canvasElement.getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', 
+            data: {
+                labels: etichetteProgrammi,
+                datasets: [{
+                    label: 'Numero di volte completato',
+                    data: numeroEsecuzioni,
+                    backgroundColor: '#3e6f8e',
+                    borderColor: '#3e6f8e',
+                    borderWidth: 2,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, 
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
