@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "Programmi", url= "${programmi.service.url}", configuration = OpenFeignConfig.class)
+@FeignClient(name = "Programmi", url= "${programmi.service.url}")
 public interface ProgrammiProxy {
 
     @GetMapping("/getProgrammi")

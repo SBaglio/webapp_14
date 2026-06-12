@@ -2,6 +2,7 @@ package gym_in_tech.webapp_14.controllers;
 
 
 import gym_in_tech.webapp_14.pojos.User;
+import gym_in_tech.webapp_14.proxies.ProgrammiProxy;
 import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,25 +22,27 @@ import java.util.List;
 public class UserDashboardController {
 
     private final UserRepository userRepository;
+    private final ProgrammiProxy programmi;
 
     @Autowired
-    public UserDashboardController (UserRepository userRepository){
+    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi){
         this.userRepository=userRepository;
+        this.programmi=programmi;
     }
 
     @GetMapping("/profilo")
     public String visualizzaProfilo(Authentication authentication, Model model){
         User user = userRepository.getUser(authentication.getName());
-        model.addAttribute("nome", user.getFirstName() );
+        model.addAttribute("nome", user.getFirstName());
         model.addAttribute("cognome", user.getLastName());
-        //model.addAttribute("dataNascita", user.getDateOfBirth());
-        model.addAttribute("ruolo", user.getRole());
+        model.addAttribute("dataNascita", user.getBirthDate());
+        model.addAttribute("ruolo", userRepository.getRole(user.getUsername()));
 
         return "profilo";
     }
 
     @GetMapping("/programmi")
-    public String visualizzaProgrammi(Authentication authentication, Model model){
+    public String visualizzaProgrammi(){
         return "programmi";
     }
 
@@ -96,6 +99,13 @@ public class UserDashboardController {
     public String visualizzaStatisticheUser(Authentication authentication, Model model){
         model.addAttribute("name", authentication.getName());
         return "statisticheUser";
+    }
+
+    @GetMapping("/allenamenti")
+    public String visualizzaAllenamenti(Model model){
+        model.addAttribute("programmiPredefiniti", programmi.getProgrammi() );
+
+        return "allenamenti";
     }
 
 }

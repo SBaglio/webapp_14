@@ -31,21 +31,21 @@
         <h2>Programmi predefiniti</h2>
         <div th:each="p : ${programmiPredefiniti}" class="programma-card p-3 mb-2 bg-white rounded border d-flex justify-content-between align-items-center">
             <div>
-                <h3 th:text="${p.nome}" class="h5 mb-1">Nome Programma</h3>
+                <h3 th:text="${p.getNomeProg()}" class="h5 mb-1">Nome Programma</h3>
                 <p class="text-muted small mb-0">Scheda ufficiale del servizio REST Programmi</p>
             </div>
-            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" th:data-bs-target="'#modal-pred-' + ${p.nome}">
+            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" th:data-bs-target="'#modal-pred-' + ${p.getNomeProg()}">
                 Vedi Dettaglio
             </button>
         </div>
     </div>
 
-    <div th:each="p : ${programmiPredefiniti}" th:id="'modal-pred-' + ${p.nome}" class="modal fade" timetable="-1" aria-hidden="true">
+    <div th:each="p : ${programmiPredefiniti}" th:id="'modal-pred-' + ${p.getNomeProg()}" class="modal fade" timetable="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold" th:text="${p.nome}">Dettaglio Programma</h5>
+                    <h5 class="modal-title fw-bold" th:text="${p.getNomeProg()}">Dettaglio Programma</h5>
                     <button type="button" class="btn-close bg-danger text-white rounded-circle p-2" data-bs-dismiss="modal" aria-label="Close" title="Esci dai dettagli"></button>
                 </div>
 
@@ -53,9 +53,9 @@
                     <p class="text-secondary">Esercizi recuperati dal servizio REST:</p>
 
                     <ul class="list-group list-group-flush">
-                        <li th:each="es : ${p.esercizi}" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span th:text="${es.nomeEs}" class="fw-bold">Nome Esercizio</span>
-                            <span class="badge bg-secondary" th:text="${es.numSerie} + 'x' + ${es.numRipetizioni}">4x10</span>
+                        <li th:each="es : ${p.getEsercizi()}" class="list-group-item d-flex justify-content-between align-items-center">
+                            <span th:text="${es.getNomeEs()}" class="fw-bold">Nome Esercizio</span>
+                            <span class="badge bg-secondary" th:text="${es.getNumSerie()} + 'x' + ${es.getNumRipetizioni()}">4x10</span>
                         </li>
                     </ul>
                 </div>

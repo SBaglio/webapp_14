@@ -101,10 +101,24 @@ public class UserRepository {
             rowObject.setFirstName(r.getString("FIRSTNAME"));
             rowObject.setLastName(r.getString("LASTNAME"));
             rowObject.setEmail(r.getString("EMAIL"));
+            rowObject.setBirthDate(r.getString("birthDate"));
             return rowObject;
         };
 
         return jdbc.queryForObject(sql, userRowMapper, username);
+    }
+
+    public String getRole(String username){
+        String sql="SELECT authority FROM AUTHORITIES WHERE username = ?";
+        String authority = jdbc.queryForObject(sql, String.class, username);
+        String ruolo = switch (authority) {
+            case "ROLE_ADMIN" -> "Admin";
+            case "ROLE_USER_BASIC" -> "User Basic";
+            case "ROLE_USER_PRO" -> "User Pro";
+            default -> "User Prova";
+        };
+
+        return ruolo;
     }
 
     public int userContaAllenamenti(String username){

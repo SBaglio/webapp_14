@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "kcal", url= "${programmi.service.url}", configuration = OpenFeignConfig.class)
+@FeignClient(name = "kcal", url= "${programmi.service.url}")
 public interface KCalCalculatorProxy {
 
     @PostMapping("/countKcal")
