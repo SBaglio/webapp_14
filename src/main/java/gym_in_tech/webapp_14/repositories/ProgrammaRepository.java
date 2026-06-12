@@ -26,25 +26,26 @@ public class ProgrammaRepository{
         this.userDetailsManager = userDetailsManager;
     }
 
-//    public List<Programma> findAllPrograms() {
-//        String sql = "SELECT * FROM PROGRAMMA";
-//        RowMapper<Programma> programmaRowMapper = (r, i) -> {
-//            Programma rowObject = new Programma();
-//            rowObject.setId(r.getInt("ID"));
-//            rowObject.setNomeProg(r.getString("NOMEES"));
-//            rowObject.setKcal(r.getInt("KCAL"));
-//            return rowObject;
-//        };
-//        return jdbc.query(sql,programmaRowMapper);
-//    }
-
     @Transactional
-    public void addPrograms(Programma programma) {
-        String sql = "INSERT INTO PROGRAMMA (NomeEs, NumSerie, Kcal) VALUES ( ?, ?, ?)";
+    public long aggiungiProgramma(Programma programma, String username) {
+        String sql = "INSERT INTO USER_PRO_PROGRAMMI (nome, username, kcal, numAllenamenti) VALUES ( ?, ?, ?, ?)";
         jdbc.update(sql,
                 programma.getNomeProg(),
-                programma.getKcal()
+                username,
+                programma.getKcal(),
+                0
                 );
+
+        // Recupera l'id appena creato - Possiamo usare MAX perche' gli id vengono generati in maniera crescente
+        String sqlId = "SELECT MAX(id) FROM USER_PRO_PROGRAMMI WHERE username = ? AND nome = ?";
+        return jdbc.queryForObject(sqlId, Long.class, username, programma.getNomeProg());
+    }
+
+    @Transactional
+    public void aggiungiEsercizio(long idProg, Esercizio es){
+        String sql = "INSERT INTO ESERCIZI_PROGRAMMI_PERSONALIZZATI (idProg, nomeEs, numSerie, numRep) VALUES (?, ?, ?, ?)";
+
+        jdbc.update(sql, idProg, es.getNomeEs(), es.getNumSerie(), es.getNumRipetizioni());
     }
 
     public Programma getProgramma(String NomeProgramma){
@@ -66,7 +67,7 @@ public class ProgrammaRepository{
             Programma rowObject = new Programma();
             rowObject.setId(r.getInt("ID"));
             rowObject.setNomeProg(r.getString("NOME"));
-            rowObject.setEsercizi(getComposizione(rowObject.getNomeProg()));
+            rowObject.setEsercizi(getComposizione(rowObject.getId()));
             rowObject.setKcal(r.getInt("KCAL"));
 
             return rowObject;
@@ -74,13 +75,8 @@ public class ProgrammaRepository{
         return jdbc.query(sql, programmaRowMapper, username);
     }
 
-    public List<Esercizio> getComposizione(String nomeProgramma) {
-        String sql = """
-            SELECT e.nomeEs, e.numSerie, e.numRep, e.kcal
-            FROM ESERCIZI e
-            JOIN PROGRAMMI_REST p ON e.idProgramma = p.id
-            WHERE p.nome = ?
-            """;
+    public List<Esercizio> getComposizione(long idProg) {
+        String sql = "SELECT nomeEs, numSerie, numRep FROM ESERCIZI_PROGRAMMI_PERSONALIZZATI where idProg = ? ";
         return jdbc.query(sql, (r, i) -> {
             Esercizio e = new Esercizio();
             e.setNomeEs(r.getString("NOMEES"));
@@ -88,7 +84,7 @@ public class ProgrammaRepository{
             e.setNumRipetizioni(r.getInt("NUMREP"));
 
             return e;
-        }, nomeProgramma);
+        }, idProg);
     }
 
 

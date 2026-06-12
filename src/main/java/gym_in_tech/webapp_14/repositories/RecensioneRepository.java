@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
@@ -17,7 +19,8 @@ public class RecensioneRepository {
         this.jdbc = jdbc;
     }
 
-    public void save(Recensione recensione) {
+    @Transactional
+    public void aggiungiRecensione(Recensione recensione) {
         String sql = "INSERT INTO RECENSIONI (username, recensione) VALUES (?, ?)";
         jdbc.update(sql, recensione.getUsername(), recensione.getRecensione());
     }

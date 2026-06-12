@@ -5,9 +5,14 @@ public class Recensione {
     private String username;
     private String recensione;
 
-    public Recensione() {}
+    public Recensione() {
+        id=0;
+        username="";
+        recensione="";
+    }
 
     public Recensione(String username, String recensione) {
+        id=0;
         this.username = username;
         this.recensione = recensione;
     }

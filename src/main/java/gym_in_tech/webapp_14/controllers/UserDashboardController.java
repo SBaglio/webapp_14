@@ -1,9 +1,14 @@
 package gym_in_tech.webapp_14.controllers;
 
 
+import gym_in_tech.webapp_14.pojos.Esercizio;
+import gym_in_tech.webapp_14.pojos.Programma;
+import gym_in_tech.webapp_14.pojos.Recensione;
 import gym_in_tech.webapp_14.pojos.User;
+import gym_in_tech.webapp_14.proxies.KCalCalculatorProxy;
 import gym_in_tech.webapp_14.proxies.ProgrammiProxy;
 import gym_in_tech.webapp_14.repositories.ProgrammaRepository;
+import gym_in_tech.webapp_14.repositories.RecensioneRepository;
 import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,9 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,12 +28,16 @@ public class UserDashboardController {
     private final UserRepository userRepository;
     private final ProgrammiProxy programmi;
     private final ProgrammaRepository programmaRepository;
+    private final KCalCalculatorProxy kCalCalculatorProxy;
+    private final RecensioneRepository recensioneRepository;
 
     @Autowired
-    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository){
+    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, RecensioneRepository recensioneRepository){
         this.userRepository=userRepository;
         this.programmi=programmi;
         this.programmaRepository = programmaRepository;
+        this.kCalCalculatorProxy = kCalCalculatorProxy;
+        this.recensioneRepository=recensioneRepository;
     }
 
     @GetMapping("/profilo")
@@ -125,5 +132,30 @@ public class UserDashboardController {
 
         return "redirect:/dashboard";
     }
+
+
+    @PostMapping("/creaProgramma")
+    public String creaProgramma(@ModelAttribute Programma programma, Authentication authentication, Model model){
+
+        float kcal=kCalCalculatorProxy.countKCal(programma);
+        programma.setKcal(kcal);
+
+        long idProg = programmaRepository.aggiungiProgramma(programma, authentication.getName());
+        for (Esercizio es : programma.getEsercizi()) {
+            programmaRepository.aggiungiEsercizio(idProg, es);
+        }
+
+        model.addAttribute("messaggioSuccesso", "Programma salvato con successo!");
+        model.addAttribute("kcalCalcolate", kcal);
+
+        return "/programmi";
+    }
+
+//    @PostMapping("/recensioni")
+//    @ResponseBody
+//    public Recensione addRecensione(@RequestParam ) {
+//        recensioneRepository.aggiungiRecensione(r);
+//        return r;
+//    }
 
 }
