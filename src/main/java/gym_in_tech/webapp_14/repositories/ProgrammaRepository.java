@@ -1,5 +1,6 @@
 package gym_in_tech.webapp_14.repositories;
 
+import gym_in_tech.webapp_14.pojos.Esercizio;
 import gym_in_tech.webapp_14.pojos.Programma;
 import gym_in_tech.webapp_14.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +26,17 @@ public class ProgrammaRepository{
         this.userDetailsManager = userDetailsManager;
     }
 
-    public List<Programma> findAllPrograms() {
-        String sql = "SELECT * FROM PROGRAMMA";
-        RowMapper<Programma> programmaRowMapper = (r, i) -> {
-            Programma rowObject = new Programma();
-            rowObject.setId(r.getInt("ID"));
-            rowObject.setNomeProg(r.getString("NOMEES"));
-            rowObject.setKcal(r.getInt("KCAL"));
-            return rowObject;
-        };
-        return jdbc.query(sql,programmaRowMapper);
-    }
+//    public List<Programma> findAllPrograms() {
+//        String sql = "SELECT * FROM PROGRAMMA";
+//        RowMapper<Programma> programmaRowMapper = (r, i) -> {
+//            Programma rowObject = new Programma();
+//            rowObject.setId(r.getInt("ID"));
+//            rowObject.setNomeProg(r.getString("NOMEES"));
+//            rowObject.setKcal(r.getInt("KCAL"));
+//            return rowObject;
+//        };
+//        return jdbc.query(sql,programmaRowMapper);
+//    }
 
     @Transactional
     public void addPrograms(Programma programma) {
@@ -56,6 +57,40 @@ public class ProgrammaRepository{
         };
         return jdbc.queryForObject(sql, programmaRowMapper, NomeProgramma);
     }
+
+
+    public List<Programma> findUserPrograms(String username) {
+        String sql = "SELECT id, nome, kcal FROM USER_PRO_PROGRAMMI where username=?";
+
+        RowMapper<Programma> programmaRowMapper = (r, i) -> {
+            Programma rowObject = new Programma();
+            rowObject.setId(r.getInt("ID"));
+            rowObject.setNomeProg(r.getString("NOME"));
+            rowObject.setEsercizi(getComposizione(rowObject.getNomeProg()));
+            rowObject.setKcal(r.getInt("KCAL"));
+
+            return rowObject;
+        };
+        return jdbc.query(sql, programmaRowMapper, username);
+    }
+
+    public List<Esercizio> getComposizione(String nomeProgramma) {
+        String sql = """
+            SELECT e.nomeEs, e.numSerie, e.numRep, e.kcal
+            FROM ESERCIZI e
+            JOIN PROGRAMMI_REST p ON e.idProgramma = p.id
+            WHERE p.nome = ?
+            """;
+        return jdbc.query(sql, (r, i) -> {
+            Esercizio e = new Esercizio();
+            e.setNomeEs(r.getString("NOMEES"));
+            e.setNumSerie(r.getInt("NUMSERIE"));
+            e.setNumRipetizioni(r.getInt("NUMREP"));
+
+            return e;
+        }, nomeProgramma);
+    }
+
 
 
 }

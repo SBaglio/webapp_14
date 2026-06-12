@@ -3,6 +3,7 @@ package gym_in_tech.webapp_14.controllers;
 
 import gym_in_tech.webapp_14.pojos.User;
 import gym_in_tech.webapp_14.proxies.ProgrammiProxy;
+import gym_in_tech.webapp_14.repositories.ProgrammaRepository;
 import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,11 +24,13 @@ public class UserDashboardController {
 
     private final UserRepository userRepository;
     private final ProgrammiProxy programmi;
+    private final ProgrammaRepository programmaRepository;
 
     @Autowired
-    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi){
+    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository){
         this.userRepository=userRepository;
         this.programmi=programmi;
+        this.programmaRepository = programmaRepository;
     }
 
     @GetMapping("/profilo")
@@ -106,6 +109,14 @@ public class UserDashboardController {
         model.addAttribute("programmiPredefiniti", programmi.getProgrammi() );
 
         return "allenamenti";
+    }
+
+    @GetMapping ("/allenamentiPro")
+    public String visualizzaAllenamentiPro(Authentication authentication, Model model){
+        model.addAttribute("programmiPredefiniti", programmi.getProgrammi() );
+        model.addAttribute("programmiPersonalizzati", programmaRepository.findUserPrograms(authentication.getName()));
+
+        return "allenamentiPro";
     }
 
     @GetMapping("/completato")
