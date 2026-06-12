@@ -137,8 +137,8 @@ public class UserRepository {
 
     }
 
-    public void disableUser(User user) {
-        jdbc.update("UPDATE USERS SET enabled = 0 WHERE username = ?", user.getUsername());
+    public void disableUser(String username) {
+        jdbc.update("UPDATE USERS SET enabled = 0 WHERE username = ?", username);
     }
 
     public void setNumAllenamenti(User user){
@@ -148,6 +148,14 @@ public class UserRepository {
 
         String sql = "UPDATE USERDATA SET numAllenamenti = ? where username =? ";
         jdbc.update(sql, allenamenti, user.getUsername());
+    }
+
+    public void addAllenamento(String username){
+        int allenamenti = jdbc.queryForObject("SELECT numAllenamenti FROM USERDATA WHERE username=?", Integer.class, username);
+        allenamenti++;
+
+        String sql = "UPDATE USERDATA SET numAllenamenti = ? where username =? ";
+        jdbc.update(sql, allenamenti, username);
     }
 
     @Transactional

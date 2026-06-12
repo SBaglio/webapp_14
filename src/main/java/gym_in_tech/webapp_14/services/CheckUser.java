@@ -28,8 +28,5 @@ public class CheckUser {
         userRepository.addUser(user);
     }
 
-    public int userContaAllenamenti(String username){
-        return userRepository.userContaAllenamenti(username);
-    }
 
 }

@@ -1,9 +1,13 @@
 package gym_in_tech.webapp_14.controllers;
 
+import gym_in_tech.webapp_14.repositories.UserRepository;
 import gym_in_tech.webapp_14.services.CheckUser;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
     private final CheckUser checkUser;
+    private final UserRepository userRepository;
 
     @Autowired
-    MainController(CheckUser checkUser) {
+    MainController(CheckUser checkUser, UserRepository userRepository) {
         this.checkUser=checkUser;
+        this.userRepository=userRepository;
     }
 
     @GetMapping("/index")
@@ -65,7 +71,9 @@ public class MainController {
 
     // Logging out
     @GetMapping("/logout")
-    public String logout() {
+    public String logout(@RequestParam(value = "trialEnded", required = false) Boolean trialEnded, Model model) {
+        model.addAttribute("trialEnded", trialEnded != null && trialEnded);
+
         return "logout";
     }
 
@@ -87,11 +95,16 @@ public class MainController {
     }
 
     @GetMapping("/DashboardUserProva")
-    public String dashboardUserProva(Authentication authentication, Model model) {
+    public String dashboardUserProva(Authentication authentication, Model model, HttpServletRequest request, HttpServletResponse response) {
         String name= authentication.getName();
-        model.addAttribute("name", name);
-        int  usufruiti= checkUser.userContaAllenamenti(name);
+        int  usufruiti= userRepository.userContaAllenamenti(name);
+        if (usufruiti>=3){
+            userRepository.disableUser(name);
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            return "redirect:/logout?trialEnded=true";
+        }
         model.addAttribute("allenamentiUsufruiti", usufruiti);
+        model.addAttribute("name", name);
         return "DashboardUserProva";
     }
 

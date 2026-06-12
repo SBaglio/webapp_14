@@ -108,4 +108,11 @@ public class UserDashboardController {
         return "allenamenti";
     }
 
+    @GetMapping("/completato")
+    public String completato(Authentication authentication){
+        userRepository.addAllenamento(authentication.getName());
+
+        return "redirect:/dashboard";
+    }
+
 }
