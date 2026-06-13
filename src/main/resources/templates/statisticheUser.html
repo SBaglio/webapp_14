@@ -54,7 +54,7 @@
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
         
-        const datiStatistiche = [];
+        const datiStatistiche = /*[[${statistiche}]]*/ [];
 
         const canvasElement = document.getElementById('istogrammaAllenamenti');
         const containerBox = document.querySelector('.box-istogramma');

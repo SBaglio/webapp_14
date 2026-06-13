@@ -24,6 +24,9 @@
 </header>
 <main>
     <h1>Contattaci!</h1>
+    <p id="successMsg" th:if="${param.invioSuccesso}" style="color: green;">
+        Messaggio inviato con successo!
+    </p>
     <form th:action="@{/contattaci}" method = post>
         <label for="firstName">Nome</label><br>
         <input type="text" id="firstName" name="firstName" value="" required><br><br>

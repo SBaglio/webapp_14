@@ -87,6 +87,9 @@ public class ProgrammaRepository{
         }, idProg);
     }
 
-
+    public void incrementaAllenamentiPersonalizzato(String username, String nomeProgramma){
+        String sql = "UPDATE USER_PRO_PROGRAMMI SET numAllenamenti = numAllenamenti + 1 WHERE username = ? AND nome = ?";
+        jdbc.update(sql, username, nomeProgramma);
+    }
 
 }

@@ -28,7 +28,7 @@
             <tr>
                 <td><a th:href="@{/listaUtenti}"><button type="button" class="listaUtenti">Visualizza Lista Utenti</button></a></td>
                 <td><button type="button" class="utentiScaduti" onclick="utentiScaduti()">Rimuovi utenti scaduti</button><p id="successMsg" th:if="${param.passwordChanged}" style="color: green;">utenti rimossi: </p></td>
-                <td><a href="statistiche.html"><button type="button" class="statistiche">Statistiche</button></a></td>
+                <td><a th:href="@{/statisticheAdmin}"><button type="button" class="statistiche">Statistiche</button></a></td>
             </tr>
         </table>
     </div>

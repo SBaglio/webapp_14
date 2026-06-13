@@ -33,6 +33,14 @@ public class MainController {
     @GetMapping("/contattaci")
     public String contattaci(){return "contatti";}
 
+    @PostMapping("/contattaci")
+    public String inviaContatto(@RequestParam String firstName, @RequestParam String email, @RequestParam String messaggio) {
+
+        //Per ora non serve una logica di salvataggio del messaggio
+
+        return "redirect:/contattaci?invioSuccesso=true";
+    }
+
     // Logging in
     @GetMapping("/login")
     public String login() {

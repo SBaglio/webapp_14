@@ -1,14 +1,12 @@
 package gym_in_tech.webapp_14.controllers;
 
 
-import gym_in_tech.webapp_14.pojos.Esercizio;
-import gym_in_tech.webapp_14.pojos.Programma;
-import gym_in_tech.webapp_14.pojos.Recensione;
-import gym_in_tech.webapp_14.pojos.User;
+import gym_in_tech.webapp_14.pojos.*;
 import gym_in_tech.webapp_14.proxies.KCalCalculatorProxy;
 import gym_in_tech.webapp_14.proxies.ProgrammiProxy;
 import gym_in_tech.webapp_14.repositories.ProgrammaRepository;
 import gym_in_tech.webapp_14.repositories.RecensioneRepository;
+import gym_in_tech.webapp_14.repositories.StatisticaProgrammiRepository;
 import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,14 +29,18 @@ public class UserDashboardController {
     private final ProgrammaRepository programmaRepository;
     private final KCalCalculatorProxy kCalCalculatorProxy;
     private final RecensioneRepository recensioneRepository;
+    private final StatisticaProgrammiRepository statisticheRepository;
+    private final ProgrammiProxy programmiProxy;
 
     @Autowired
-    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, RecensioneRepository recensioneRepository){
+    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, RecensioneRepository recensioneRepository, ProgrammiProxy programmiProxy, StatisticaProgrammiRepository statisticheRepository){
         this.userRepository=userRepository;
         this.programmi=programmi;
         this.programmaRepository = programmaRepository;
         this.kCalCalculatorProxy = kCalCalculatorProxy;
         this.recensioneRepository=recensioneRepository;
+        this.programmiProxy = programmiProxy;
+        this.statisticheRepository=statisticheRepository;
     }
 
     @GetMapping("/profilo")
@@ -105,12 +108,6 @@ public class UserDashboardController {
         return "redirect:/dashboard?passwordChanged=true";
     }
 
-    @GetMapping("/statisticheUser")
-    public String visualizzaStatisticheUser(Authentication authentication, Model model){
-        model.addAttribute("name", authentication.getName());
-        return "statisticheUser";
-    }
-
     @GetMapping("/allenamenti")
     public String visualizzaAllenamenti(Model model){
         model.addAttribute("programmiPredefiniti", programmi.getProgrammi() );
@@ -127,8 +124,19 @@ public class UserDashboardController {
     }
 
     @GetMapping("/completato")
-    public String completato(Authentication authentication){
-        userRepository.addAllenamento(authentication.getName());
+    public String completato(@RequestParam String nomeProgramma, Authentication authentication){
+        String username = authentication.getName();
+        userRepository.addAllenamento(username);
+        List<Programma> programmiPredefiniti = programmiProxy.getProgrammi();
+
+        boolean isPredefinito = programmiPredefiniti.stream()
+                .anyMatch(p -> p.getNomeProg().equals(nomeProgramma));
+
+        if (isPredefinito) {
+            statisticheRepository.incrementaEsecuzione(username, nomeProgramma);
+        } else {
+            programmaRepository.incrementaAllenamentiPersonalizzato(username, nomeProgramma);
+        }
 
         return "redirect:/dashboard";
     }
@@ -151,11 +159,22 @@ public class UserDashboardController {
         return "/programmi";
     }
 
-//    @PostMapping("/recensioni")
-//    @ResponseBody
-//    public Recensione addRecensione(@RequestParam ) {
-//        recensioneRepository.aggiungiRecensione(r);
-//        return r;
-//    }
+
+    @GetMapping("/statisticheUser")
+    public String getStatisticheUser(Authentication authentication, Model model) {
+        String username = authentication.getName();
+
+        List<StatisticaProgrammi> statistiche = new ArrayList<>(statisticheRepository.getStatisticheUtente(username));
+
+        // Se l'utente è Pro, aggiungi anche le statistiche dei programmi personalizzati
+        boolean isPro = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_PRO"));
+
+        if (isPro) {statistiche.addAll(statisticheRepository.getStatistichePersonalizzati(username));}
+
+        model.addAttribute("name", username);
+        model.addAttribute("statistiche", statistiche);
+
+        return "statisticheUser";
+    }
 
 }
