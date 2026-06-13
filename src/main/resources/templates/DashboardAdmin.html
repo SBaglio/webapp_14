@@ -21,13 +21,13 @@
 </header>
 
 <main>
-    <h1>Benvenuta <span th:text="${name}"></span>!</h1>
+    <h1 style="color: #3e6f8e" class="mb-4">Benvenuta <span th:text="${name}"></span>!</h1>
     <br>
     <div class="funzioni">
         <table>
             <tr>
                 <td><a th:href="@{/listaUtenti}"><button type="button" class="listaUtenti">Visualizza Lista Utenti</button></a></td>
-                <td><button type="button" class="utentiScaduti" onclick="utentiScaduti()">Rimuovi utenti scaduti</button></td>
+                <td><button type="button" class="utentiScaduti" onclick="utentiScaduti()">Rimuovi utenti scaduti</button><p id="successMsg" th:if="${param.passwordChanged}" style="color: green;">utenti rimossi: </p></td>
                 <td><a href="statistiche.html"><button type="button" class="statistiche">Statistiche</button></a></td>
             </tr>
         </table>

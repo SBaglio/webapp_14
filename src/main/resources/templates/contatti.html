@@ -5,7 +5,16 @@
     <title>Gym in Tech</title>
     <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
-
+    <style>
+        textarea{
+            width: 40%;
+            height: 150px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #f4f1ea;
+            font-size: large;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -21,10 +30,12 @@
 
         <label for="email">E-mail</label><br>
         <input type="text" id="email" name="email" value="" required><br><br>
-        <label for="message">Messaggio</label><br>
-        <input type="text" id="message" name="message" value="" required><br><br>
+
+        <label for="messaggio">Messaggio</label><br>
+        <textarea id="messaggio" name="messaggio" required></textarea><br><br>
 
         <input type="submit" class="invio" value="Invia">
+
     </form>
 </main>
 

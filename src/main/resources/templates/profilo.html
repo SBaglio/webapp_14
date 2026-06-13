@@ -6,6 +6,12 @@
 	<title>Gym in Tech</title>
 	<link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <style>
+        p{
+            font-size: 25px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,7 +27,7 @@
     </header>
 
     <main>
-        <h1>Il tuo profilo</h1>
+        <h1 style="color: #3e6f8e">Il tuo profilo</h1>
 
 	    <p><strong>Nome:</strong> <span th:text="${nome}"></span></p>
 

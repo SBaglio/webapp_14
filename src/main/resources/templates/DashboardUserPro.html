@@ -23,7 +23,7 @@
 </header>
 
 <main>
-    <h1>Benvenuta <span th:text="${name}"></span>!</h1>
+    <h1 style="color: #3e6f8e">Benvenuta <span th:text="${name}"></span>!</h1>
 
     <div class="layout">
         <div class="gestione">
@@ -59,7 +59,7 @@
                 <textarea id="testo" placeholder="Scrivi la tua recensione"></textarea>
             </div>
 
-            <button onclick="inviaRecensione()">
+            <button class="btn-recensione" onclick="inviaRecensione()">
                 Inserisci recensione
             </button>
 

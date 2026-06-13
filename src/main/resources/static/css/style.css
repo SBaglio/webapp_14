@@ -1,43 +1,65 @@
 header{
-    background-color: #3e6f8e;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-body{
-    font-family: Verdana, Geneva, sans-serif;
-    margin: 0;
-    padding: 0;
+    background-color: #3e6f8e !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    z-index: 1050 !important;
 }
 
 .barra{
-    margin-right: 20px;
+    margin-right: 20px !important;
+}
+
+body{
+    font-family: Verdana, Geneva, sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 footer{
-    background-color: #f4f1ea;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    display: flex;
+    background-color: #f4f1ea !important;
+    position: relative !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 10px !important;
+    display: flex !important;
 }
 
 footer table{
-    width: 100%;
-    text-align: center;
+    width: 100% !important;
+    text-align: center !important;
 }
 
 footer table tr td{
-    width: 33.33%;
-    text-align: center;
+    width: 33.33% !important;
+    text-align: center !important;
+}
+
+.informazione{
+    margin-right: 20px !important;
+}
+
+main {
+    position: static !important;
+    margin-top: 110px !important;
+    width: 100% !important;
+    padding: 10px !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+button{
+    background-color: #f4f1ea;
+    font-size: 22px !important;
+    padding: 5px !important;
+    border-radius:8px !important;
+    font-weight: bold !important;
 }
 
 input {
@@ -57,24 +79,6 @@ label {
 
 .informazione{
     margin-right: 20px;
-}
-
-main {
-    position: static;
-    margin-top: 100px;
-    width: 100%;
-    padding: 10px;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-}
-
-button{
-    background-color: #f4f1ea;
-    font-size: 22px;
-    padding: 5px;
-    border-radius:8px;
-    font-weight: bold;
 }
 
 #nomelogo{
@@ -363,3 +367,12 @@ box-istogramma {
         height: 300px;
     }
 }
+
+.btn-outline-primary {
+    --bs-btn-color: #3e6f8e;
+    --bs-btn-border-color: #3e6f8e;
+    --bs-btn-hover-bg: #3e6f8e;
+    --bs-btn-hover-border-color: #3e6f8e;
+    --bs-btn-hover-color: #fff;
+}
+

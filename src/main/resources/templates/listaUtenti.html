@@ -6,6 +6,36 @@
     <title>Gym in Tech</title>
     <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+    <style>
+        .contenitore-centrato {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 100px auto 80px auto;
+            font-family: Arial, sans-serif;
+        }
+        .contenitore-centrato h1 {
+            color: #3e6f8e;
+            margin-bottom: 20px;
+        }
+        .tabella-utenti {
+            width: 75%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dddddd;
+        }
+        .tabella-utenti th, .tabella-utenti td {
+            padding: 12px;
+            border: 1px solid #dddddd;
+            text-align: center;
+        }
+        .tabella-utenti thead tr {
+            background-color: #f4f1ea;
+            color: #3e6f8e;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,9 +45,9 @@
     </table>
 </header>
 
-<main>
+<main class="contenitore-centrato">
     <h1>Lista Utenti</h1>
-    <table>
+    <table class="tabella-utenti">
         <thead>
             <tr>
                 <th>Username</th>
@@ -34,6 +64,10 @@
             </tr>
         </tbody>
     </table>
+
+    <a th:href="@{/dashboard}">
+        <button type="button" class="torna">Torna alla dashboard</button>
+    </a>
 </main>
 
 <footer>
