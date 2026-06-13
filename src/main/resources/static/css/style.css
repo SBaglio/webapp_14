@@ -98,12 +98,20 @@ label {
     font-weight: bold;
 }
 
-#struttura{
-    height: 500px;
+#struttura {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
+
 #orari {
-    font-style: italic;
+    background-color: #f4f1ea ;
+    padding: 20px ;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
 }
 
 .invio {

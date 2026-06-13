@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym in Tech</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+    <style>
+        .contenitore-statistiche {
+            display: flex;
+            width: 100%;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        .roleUserBasic, .roleUserPro {
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .roleUserBasic {
+            background-color: #ffffff;
+            border-right: 3px solid #3e6f8e;
+        }
+        .roleUserBasic h2 {
+            color: #3e6f8e;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .roleUserPro {
+            background-color: #ffffff;
+        }
+        .roleUserPro h2 {
+            color: #3e6f8e;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .roleUserBasic table, .roleUserPro table {
+            width: 85%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px #eaeaea;
+        }
+        .roleUserBasic th, .roleUserBasic td,
+        .roleUserPro th, .roleUserPro td {
+            padding: 14px;
+            border: 1px solid #dddddd;
+            text-align: center;
+        }
+        .roleUserBasic thead tr {
+            background-color: #3e6f8e;
+            color: #ffffff;
+        }
+        .roleUserPro thead tr {
+            background-color: #f4f1ea;
+            color: #3e6f8e;
+        }
+        .roleUserBasic tbody tr td, .roleUserPro tbody tr td {
+            color: #333333;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <table>
+        <tr><td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"> </a><!--logo--></td></tr>
+    </table>
+
+    <nav class="barra">
+        <a th:href="@{/logout}"><button type="button" class="logout">Logout</button></a>
+    </nav>
+</header>
+
+<main>
+<h1 style="text-align:center; margin-bottom: 20px;">Statistiche Programmi di Allenamento</h1>
+
+    <div class="contenitore-statistiche">
+
+        <div class="roleUserBasic">
+            <h2>Piani Utenti BASIC</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Programma</th>
+                        <th>Media Allenamenti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="stat : ${statisticheBasic}">
+                        <td th:text="${stat.getNomeProgramma()}">Nome Programma</td>
+                        <td th:text="${stat.getMedia()}">0.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="roleUserPro">
+            <h2>Piani Utenti PRO</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Programma</th>
+                        <th>Media Allenamenti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="stat : ${statistichePro}">
+                        <td th:text="${stat.getNomeProgramma()}">Nome Programma</td>
+                        <td th:text="${stat.getMedia()}">0.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a th:href="@{/dashboard}">
+        <button type="button" class="torna">Torna alla dashboard</button>
+    </a>
+</main>
+
+<footer>
+    <table>
+        <tr>
+            <td class="informazione" >  <b>Dove trovarci:</b> Via Sommarive 9, 38123, Povo (TN) </td>
+            <td class="informazione" > <b>Email:</b>  gym.in.tech@git.com</td>
+            <td class="informazione" > <b>P.IVA:</b> 02583980338</td>
+        </tr>
+    </table>
+</footer>
+
+</body>
+</html>
