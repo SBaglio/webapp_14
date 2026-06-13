@@ -39,7 +39,7 @@
             if (msg) {
                 setTimeout(function() {
                     msg.style.display = "none";
-                }, 30000); //30 secondi
+                }, 15000); //15 secondi
             }
         </script>
 
@@ -108,17 +108,18 @@
     
 <div class="recensione">
     <h2>Recensioni</h2>
-    
-    <div>
-        <div class="">
-            <textarea id="testo" placeholder="Scrivi la tua recensione"></textarea>
+
+    <form onsubmit="inviaRecensione(); return false;">
+
+        <div>
+        <textarea id="testo" placeholder="Scrivi la tua recensione" required></textarea>
         </div>
 
-        <button class="btn-recensione" onclick="inviaRecensione()">
+        <button type="submit" class="btn-recensione">
             Inserisci recensione
         </button>
 
-    </div>
+    </form>
 
     <div id="carouselRecensioni" class="carousel slide" data-bs-ride="carousel" data-bs-interval="30000">
 

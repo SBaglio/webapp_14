@@ -199,6 +199,17 @@ label {
     padding: 10px;
 }
 
+.carousel-item .recensione-box {
+    background-color: #f4f1ea;
+    max-width: 550px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
 /* CARD RECENSIONE */
 .card {
     min-width: 200px;
@@ -377,10 +388,10 @@ box-istogramma {
 }
 
 .btn-outline-primary {
-    --bs-btn-color: #3e6f8e;
-    --bs-btn-border-color: #3e6f8e;
-    --bs-btn-hover-bg: #3e6f8e;
-    --bs-btn-hover-border-color: #3e6f8e;
-    --bs-btn-hover-color: #fff;
+    --bs-btn-color: #3e6f8e !important;
+    --bs-btn-border-color: #3e6f8e !important;
+    --bs-btn-hover-bg: #3e6f8e !important;
+    --bs-btn-hover-border-color: #3e6f8e !important;
+    --bs-btn-hover-color: #fff !important;
 }
 

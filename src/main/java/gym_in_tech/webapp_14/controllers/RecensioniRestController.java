@@ -1,7 +1,9 @@
 package gym_in_tech.webapp_14.controllers;
 
 import gym_in_tech.webapp_14.pojos.Recensione;
+import gym_in_tech.webapp_14.pojos.User;
 import gym_in_tech.webapp_14.repositories.RecensioneRepository;
+import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,15 @@ import java.util.List;
 
 @RestController
 public class RecensioniRestController {
-    @Autowired
+
     private RecensioneRepository recensioneRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public RecensioniRestController(RecensioneRepository recensioneRepository, UserRepository userRepository){
+        this.recensioneRepository=recensioneRepository;
+        this.userRepository=userRepository;
+    }
 
     @GetMapping("/getRecensioni")
     public List<Recensione> getRecensioni() {
@@ -23,8 +32,8 @@ public class RecensioniRestController {
 
     @PostMapping("/inviaRecensione")
     public List<Recensione> aggiungiRecensione(@RequestBody Recensione recensione, Authentication authentication) {
-        String username = authentication.getName();
-        recensione.setUsername(username);
+        User user = userRepository.getUser(authentication.getName());
+        recensione.setNome(user.getFirstName());
 
         recensioneRepository.aggiungiRecensione(recensione);
         return recensioneRepository.findAll();

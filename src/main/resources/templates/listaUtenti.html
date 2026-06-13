@@ -43,6 +43,10 @@
     <table>
         <tr><td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"> </a></td></tr>
     </table>
+
+    <nav class="barra">
+        <a th:href="@{/logout}"><button type="button" class="logout">Logout</button></a>
+    </nav>
 </header>
 
 <main class="contenitore-centrato">
@@ -64,6 +68,8 @@
             </tr>
         </tbody>
     </table>
+
+    <p></p>
 
     <a th:href="@{/dashboard}">
         <button type="button" class="torna">Torna alla dashboard</button>

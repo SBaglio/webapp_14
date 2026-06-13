@@ -42,5 +42,15 @@
     </form>
 </main>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const msg = document.getElementById("successMsg");
+        if (msg) {
+            setTimeout(function() {
+                msg.style.display = "none";
+            }, 10000); //10 secondi
+        }
+    });
+</script>
 </body>
 </html>

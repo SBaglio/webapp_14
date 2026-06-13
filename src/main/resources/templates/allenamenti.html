@@ -32,7 +32,7 @@
         <div th:each="p : ${programmiPredefiniti}" class="programma-card p-3 mb-2 bg-white rounded border d-flex justify-content-between align-items-center">
             <div>
                 <h3 th:text="${p.getNomeProg()}" class="h5 mb-1">Nome Programma</h3>
-                <p class="text-muted small mb-0">Scheda ufficiale del servizio REST Programmi</p>
+                <p class="text-muted small mb-0">Scheda ufficiale fatta dai nostri Personal Trainer</p>
             </div>
             <button type="button" class="btn btn-outline-primary btn-sm btn-modal-trigger" data-bs-toggle="modal" th:data-bs-target="'#modal-pred-' + ${p.getNomeProg()}">
                 Vedi Dettaglio
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <p class="text-secondary">Esercizi recuperati dal servizio REST:</p>
+                    <p class="text-secondary">Esercizi con cui bruciare fino a <span th:text="${p.getKcal()}"></span> kcal</p>
 
                     <ul class="list-group list-group-flush">
                         <li th:each="es : ${p.getEsercizi()}" class="list-group-item d-flex justify-content-between align-items-center">
@@ -61,7 +61,10 @@
                 </div>
 
                 <div class="modal-footer justify-content-center">
-                    <a th:href="@{/completato(nomeProgramma=${p.getNomeProg()})}"  class="btn btn-success btn-lg px-5 fw-bold">✓ Completato</a>
+                    <form th:action="@{/completato}" method="post">
+                        <input type="hidden" name="nomeProgramma" th:value="${p.getNomeProg()}">
+                        <button type="submit" class="btn btn-success btn-lg px-5 fw-bold">✓ Completato</button>
+                    </form>
                 </div>
 
             </div>

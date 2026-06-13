@@ -13,8 +13,8 @@
     </table>
 </header>
 <main>
-    <p th:if="${param.error}" style="color:red">
-        Username o password errati.
+    <p th:if="${param.error}" id="errorMsg" style="color:red; font-weight: bold; font-size: medium;">
+        #14: That user is not authenticated!
     </p>
     <h1>Log In</h1>
     <div class="container">
@@ -23,13 +23,22 @@
                 <input type="text" name="username" placeholder="Username"/>
             </div>
             <div>
-                <input type="password" id="password" name="password" placeholder="Password"  pattern="(?=.*id_14).{8,}"
-                       title="Deve contenere la stringa 'id_14' e almeno 8 o piu' caratteri" required>
+                <input type="password" id="password" name="password" placeholder="Password"  pattern="(?=.*id_14).{8}$"
+                       title="Deve contenere la stringa 'id_14' e esattamente 8 caratteri" required>
             </div>
             <input type="submit" class="invio" value="Log in" />
         </form>
     </div>
 </main>
+
+<script>
+    var msg = document.getElementById("errorMsg");
+    if (msg) {
+        setTimeout(function() {
+            msg.style.display = "none";
+        }, 15000); //15 secondi
+    }
+</script>
 
 </body>
 </html>

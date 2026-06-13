@@ -9,6 +9,7 @@ import gym_in_tech.webapp_14.repositories.RecensioneRepository;
 import gym_in_tech.webapp_14.repositories.StatisticaProgrammiRepository;
 import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +30,15 @@ public class UserDashboardController {
     private final ProgrammiProxy programmi;
     private final ProgrammaRepository programmaRepository;
     private final KCalCalculatorProxy kCalCalculatorProxy;
-    private final RecensioneRepository recensioneRepository;
     private final StatisticaProgrammiRepository statisticheRepository;
     private final ProgrammiProxy programmiProxy;
 
     @Autowired
-    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, RecensioneRepository recensioneRepository, ProgrammiProxy programmiProxy, StatisticaProgrammiRepository statisticheRepository){
+    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, ProgrammiProxy programmiProxy, StatisticaProgrammiRepository statisticheRepository){
         this.userRepository=userRepository;
         this.programmi=programmi;
         this.programmaRepository = programmaRepository;
         this.kCalCalculatorProxy = kCalCalculatorProxy;
-        this.recensioneRepository=recensioneRepository;
         this.programmiProxy = programmiProxy;
         this.statisticheRepository=statisticheRepository;
     }
@@ -60,7 +60,7 @@ public class UserDashboardController {
     }
 
     @PostMapping("/upgradePlan")
-    public String upgradePlan(@RequestParam String piano, Authentication authentication){
+    public String upgradePlan(@RequestParam String piano, Authentication authentication, RedirectAttributes redirectAttributes){
         String role = switch (piano) {
             case "Basic" -> "ROLE_USER_BASIC";
             case "Pro"   -> "ROLE_USER_PRO";
@@ -74,6 +74,8 @@ public class UserDashboardController {
         List<GrantedAuthority> nuoveAuthorities = List.of(new SimpleGrantedAuthority(role));
         Authentication nuovaAuth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), nuoveAuthorities);
         SecurityContextHolder.getContext().setAuthentication(nuovaAuth);
+
+        redirectAttributes.addFlashAttribute("upgradeSuccess", true);
 
         return "redirect:/dashboard";
     }
@@ -123,7 +125,7 @@ public class UserDashboardController {
         return "allenamentiPro";
     }
 
-    @GetMapping("/completato")
+    @PostMapping("/completato")
     public String completato(@RequestParam String nomeProgramma, Authentication authentication){
         String username = authentication.getName();
         userRepository.addAllenamento(username);
@@ -148,13 +150,19 @@ public class UserDashboardController {
         float kcal=kCalCalculatorProxy.countKCal(programma);
         programma.setKcal(kcal);
 
-        long idProg = programmaRepository.aggiungiProgramma(programma, authentication.getName());
-        for (Esercizio es : programma.getEsercizi()) {
-            programmaRepository.aggiungiEsercizio(idProg, es);
-        }
+        try {
+            long idProg = programmaRepository.aggiungiProgramma(programma, authentication.getName());
 
-        model.addAttribute("messaggioSuccesso", "Programma salvato con successo!");
-        model.addAttribute("kcalCalcolate", kcal);
+            for (Esercizio es : programma.getEsercizi()) {
+                programmaRepository.aggiungiEsercizio(idProg, es);
+            }
+
+            model.addAttribute("messaggioSuccesso", "Programma salvato con successo!");
+            model.addAttribute("kcalCalcolate", kcal);
+
+        } catch (DuplicateKeyException e) {   //se l'utente prova ad inserire due programmi personalizzati con lo stesso nome
+            model.addAttribute("errorMessage", "Hai già creato un programma chiamato '" + programma.getNomeProg() + "'. Scegli un nuovo nome.");
+        }
 
         return "/programmi";
     }

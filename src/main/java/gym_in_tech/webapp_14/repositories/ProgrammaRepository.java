@@ -18,12 +18,10 @@ import java.util.List;
 @Repository
 public class ProgrammaRepository{
     private final JdbcTemplate jdbc;
-    private final UserDetailsManager userDetailsManager;
 
     @Autowired
-    public ProgrammaRepository(JdbcTemplate jdbc, UserDetailsManager userDetailsManager){
+    public ProgrammaRepository(JdbcTemplate jdbc){
         this.jdbc = jdbc;
-        this.userDetailsManager = userDetailsManager;
     }
 
     @Transactional

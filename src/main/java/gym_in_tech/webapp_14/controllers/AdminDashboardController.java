@@ -5,9 +5,10 @@ import gym_in_tech.webapp_14.pojos.User;
 import gym_in_tech.webapp_14.proxies.ProgrammiProxy;
 import gym_in_tech.webapp_14.repositories.StatisticaProgrammiRepository;
 import gym_in_tech.webapp_14.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +38,11 @@ public class AdminDashboardController {
         return "listaUtenti";
     }
 
-    @PostMapping("/disabilita-scaduti")
-    @ResponseBody
-    public ResponseEntity<Integer> rimuoviUtentiScaduti() {
+    @PostMapping("/rimuoviProvaDisabilitati")
+    @ResponseBody  //REST
+    public ResponseEntity<Integer> rimuoviUtentiProvaDisabilitati() {
         try {
             int utentiRimossi = userRepository.deleteDisabledUserProva();
-
             return ResponseEntity.ok(utentiRimossi);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0);

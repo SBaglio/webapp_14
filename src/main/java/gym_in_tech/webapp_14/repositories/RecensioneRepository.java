@@ -21,17 +21,17 @@ public class RecensioneRepository {
 
     @Transactional
     public void aggiungiRecensione(Recensione recensione) {
-        String sql = "INSERT INTO RECENSIONI (username, recensione) VALUES (?, ?)";
-        jdbc.update(sql, recensione.getUsername(), recensione.getRecensione());
+        String sql = "INSERT INTO RECENSIONI (nome, recensione) VALUES (?, ?)";
+        jdbc.update(sql, recensione.getNome(), recensione.getRecensione());
     }
 
     public List<Recensione> findAll() {
-        String sql = "SELECT * FROM RECENSIONI ORDER BY id DESC";
+        String sql = "SELECT * FROM RECENSIONI";
 
         RowMapper<Recensione> recensioneRowMapper = (rs, rowNum) -> {
             Recensione r = new Recensione();
             r.setId(rs.getInt("id"));
-            r.setUsername(rs.getString("username"));
+            r.setNome(rs.getString("nome"));
             r.setRecensione(rs.getString("recensione"));
             return r;
         };

@@ -18,7 +18,7 @@
 
 <main>
 <h1>Iscriviti!</h1>
-    <div th:if="${errorMessage != null}"  style="width: 25%; text-align: center; margin: 0 auto;" class="alert alert-danger" >
+    <div th:if="${errorMessage != null}"  style="width: 25%; text-align: center; margin: 0 auto;" id="errorMsg" class="alert alert-danger" >
         <span th:text="${errorMessage}"></span>
     </div>
 <form th:action="@{/addUser}" method = post id="registrationForm">
@@ -42,14 +42,14 @@
 
     <label for="password">Password</label><br>
     <input type="password" id="password" name="password"
-           pattern="(?=.*id_14).{8,}"
-           title="Deve contenere la stringa 'id_14' e almeno 8 o piu' caratteri" required>
+           pattern="(?=.*id_14).{8}$"
+           title="Deve contenere la stringa 'id_14' e esattamente 8 caratteri" required>
     <br><br>
 
     <div id="message">
         <h3>La password deve contenere:</h3>
         <p id="letter" class="invalid">La seguente stringa: <b> id_14 </b></p>
-        <p id="length" class="invalid">Minimo <b>8 caratteri</b></p>
+        <p id="length" class="invalid">Esattamente <b>8 caratteri</b></p>
     </div>
 
     <label for="confirmPassword">Conferma Password</label><br>
@@ -147,6 +147,12 @@
 
 </main>
 <script>
+    var msg = document.getElementById("errorMsg");
+    if (msg) {
+        setTimeout(function() {
+            msg.style.display = "none";
+        }, 15000); //15 secondi
+    }
 
     var passwordInput = document.getElementById("password");
     var confirmInput  = document.getElementById("confirmPassword");
@@ -168,7 +174,7 @@
         } else {
             letterMsg.classList.replace("valid", "invalid");
         }
-        if (passwordInput.value.length >= 8) {
+        if (passwordInput.value.length === 8) {
             lengthMsg.classList.replace("invalid", "valid");
         } else {
             lengthMsg.classList.replace("valid", "invalid");

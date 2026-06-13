@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" th:href="@{/images/logoBlu.png}">
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <title>Gym in Tech</title>
 </head>
 <body>
@@ -27,7 +26,9 @@
         <table>
             <tr>
                 <td><a th:href="@{/listaUtenti}"><button type="button" class="listaUtenti">Visualizza Lista Utenti</button></a></td>
-                <td><button type="button" class="utentiScaduti" onclick="utentiScaduti()">Rimuovi utenti scaduti</button><p id="successMsg" th:if="${param.passwordChanged}" style="color: green;">utenti rimossi: </p></td>
+                <td><button type="button" class="utentiScaduti" onclick="confermaRimozione()">Rimuovi utenti scaduti</button>
+                    <p id="successMsg" style="color: green; display: none;">Utenti rimossi: <span id="numeroRimossi"></span></p>
+                </td>
                 <td><a th:href="@{/statisticheAdmin}"><button type="button" class="statistiche">Statistiche</button></a></td>
             </tr>
         </table>
@@ -46,28 +47,27 @@
 </footer>
 
 <script>
-    function utentiScaduti(){
+    function confermaRimozione() {
         if (confirm("Sei sicuro di voler eliminare definitivamente tutti gli utenti PROVA disabilitati?")) {
-            fetch('/disabilita-scaduti', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+            fetch('/rimuoviProvaDisabilitati', {
+                method: 'POST'
             })
                 .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error("Errore nel server");
-                    }
+                    if (!response.ok) throw new Error("Errore nel server");
+                    return response.json();
                 })
                 .then(numeroRimossi => {
-                    alert("Operazione completata con successo \nUtenti rimossi dal database: " + numeroRimossi);
-                    window.location.reload();
+                    const msg = document.getElementById("successMsg");
+                    document.getElementById("numeroRimossi").textContent = numeroRimossi;
+                    msg.style.display = "block";
+
+                    setTimeout(function() {
+                        msg.style.display = "none";
+                    }, 15000); //15 secondi
                 })
                 .catch(error => {
-                    console.error("Errore di rete:", error);
-                    alert("Si è verificato un errore durante l'operazione sul server.");
+                    console.error("Errore:", error);
+                    alert("Si è verificato un errore durante l'operazione.");
                 });
         }
     }

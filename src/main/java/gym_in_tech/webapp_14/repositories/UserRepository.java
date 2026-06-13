@@ -49,20 +49,6 @@ public class UserRepository {
         return jdbc.query(sql, userRowMapper);
     }
 
-    public List<User> findDisabledUsers() {
-        String sql = "SELECT * FROM USERDATA";
-        RowMapper<User> userRowMapper = (r, i) -> {
-            User rowObject = new User();
-            rowObject.setId(r.getInt("ID"));
-            rowObject.setUsername(r.getString("USERNAME"));
-            rowObject.setFirstName(r.getString("FIRSTNAME"));
-            rowObject.setLastName(r.getString("LASTNAME"));
-            rowObject.setEmail(r.getString("EMAIL"));
-            return rowObject;
-        };
-        return jdbc.query(sql, userRowMapper);
-    }
-
 
     @Transactional
     public void addUser(User user) {
@@ -141,14 +127,6 @@ public class UserRepository {
         jdbc.update("UPDATE USERS SET enabled = 0 WHERE username = ?", username);
     }
 
-    public void setNumAllenamenti(User user){
-        int allenamenti= userContaAllenamenti(user.getUsername());
-
-        user.setAllenamentiUsufruiti(allenamenti);
-
-        String sql = "UPDATE USERDATA SET numAllenamenti = ? where username =? ";
-        jdbc.update(sql, allenamenti, user.getUsername());
-    }
 
     public void addAllenamento(String username){
         int allenamenti = jdbc.queryForObject("SELECT numAllenamenti FROM USERDATA WHERE username=?", Integer.class, username);
@@ -159,14 +137,13 @@ public class UserRepository {
     }
 
     @Transactional
-    public void deleteUser(User user) {
-        // Eliminiamo solo da Users avendo ON DELETE CASCADE nelle altre tabelle
-        jdbc.update("DELETE FROM USERS WHERE username = ?", user.getUsername());
-    }
-
     public int deleteDisabledUserProva() {
-        String sql = "DELETE FROM USERS WHERE enabled = AND username IN ( SELECT username FROM AUTHORITIES WHERE authority = 'ROLE_USER_PROVA')";
-        return jdbc.update(sql);
+        String rimuoviDaUserdata = "DELETE FROM USERDATA WHERE username IN (SELECT username FROM USERS WHERE enabled = 0 AND username IN (SELECT username FROM AUTHORITIES WHERE authority = 'ROLE_USER_PROVA'))";
+        jdbc.update(rimuoviDaUserdata);
+
+        String rimuoviDaUsers = "DELETE FROM USERS WHERE enabled = 0 AND username IN (SELECT username FROM AUTHORITIES WHERE authority = 'ROLE_USER_PROVA')";
+        //non serve rimuovere da Authorities dato che abbiamo messo on delete cascade
+        return jdbc.update(rimuoviDaUsers);  //ritona il numero di righe cancellate
     }
 
     public boolean checkPassword(User user, String vecchiaPassword){

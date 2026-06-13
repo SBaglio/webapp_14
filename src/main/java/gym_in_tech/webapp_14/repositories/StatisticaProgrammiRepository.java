@@ -14,12 +14,10 @@ import java.util.List;
 @Repository
 public class StatisticaProgrammiRepository {
     private final JdbcTemplate jdbc;
-    private final UserDetailsManager userDetailsManager;
 
     @Autowired
-    public StatisticaProgrammiRepository(JdbcTemplate jdbc, UserDetailsManager userDetailsManager){
+    public StatisticaProgrammiRepository(JdbcTemplate jdbc){
         this.jdbc = jdbc;
-        this.userDetailsManager = userDetailsManager;
     }
 
     public List<StatisticaProgrammi> getMedieEsecuzioniPerRuolo(List<Programma> programmiPredefiniti) {

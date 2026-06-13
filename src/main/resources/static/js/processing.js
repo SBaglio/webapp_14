@@ -65,9 +65,9 @@ function renderizzaRecensioni(listaRecensioni) {
         elementoCard.className = "carousel-item" + (index === 0 ? " active" : "");
 
         elementoCard.innerHTML = `
-            <div class="card p-4 text-center">
-                <p><strong>@${escapeHtml(recensione.username)}</strong></p>
-                <p>"${escapeHtml(recensione.recensione)}"</p>
+            <div class="recensione-box">
+                <p><strong style="color:#3e6f8e;">${recensione.nome}</strong></p>
+                <p>"${recensione.recensione}"</p>
             </div>`;
         contenitoreInner.appendChild(elementoCard);
     });
