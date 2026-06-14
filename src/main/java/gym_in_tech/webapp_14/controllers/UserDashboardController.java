@@ -5,7 +5,6 @@ import gym_in_tech.webapp_14.pojos.*;
 import gym_in_tech.webapp_14.proxies.KCalCalculatorProxy;
 import gym_in_tech.webapp_14.proxies.ProgrammiProxy;
 import gym_in_tech.webapp_14.repositories.ProgrammaRepository;
-import gym_in_tech.webapp_14.repositories.RecensioneRepository;
 import gym_in_tech.webapp_14.repositories.StatisticaProgrammiRepository;
 import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +93,6 @@ public class UserDashboardController {
 
         User user = userRepository.getUser(authentication.getName());
 
-        // Ridondante ma sicuro: controlla che le due nuove password coincidano
         if (!password.equals(confirmPassword)) {
             model.addAttribute("errorMessage", "Le nuove password non coincidono.");
             return "cambioPassword";
@@ -119,7 +117,7 @@ public class UserDashboardController {
 
     @GetMapping ("/allenamentiPro")
     public String visualizzaAllenamentiPro(Authentication authentication, Model model){
-        model.addAttribute("programmiPredefiniti", programmi.getProgrammi() );
+        model.addAttribute("programmiPredefiniti", programmi.getProgrammi());
         model.addAttribute("programmiPersonalizzati", programmaRepository.findUserPrograms(authentication.getName()));
 
         return "allenamentiPro";
@@ -131,8 +129,7 @@ public class UserDashboardController {
         userRepository.addAllenamento(username);
         List<Programma> programmiPredefiniti = programmiProxy.getProgrammi();
 
-        boolean isPredefinito = programmiPredefiniti.stream()
-                .anyMatch(p -> p.getNomeProg().equals(nomeProgramma));
+        boolean isPredefinito = programmiPredefiniti.stream().anyMatch(p -> p.getNomeProg().equals(nomeProgramma));
 
         if (isPredefinito) {
             statisticheRepository.incrementaEsecuzione(username, nomeProgramma);
@@ -174,7 +171,7 @@ public class UserDashboardController {
 
         List<StatisticaProgrammi> statistiche = new ArrayList<>(statisticheRepository.getStatisticheUtente(username));
 
-        // Se l'utente è Pro, aggiungi anche le statistiche dei programmi personalizzati
+        // Se l'utente è Pro, aggiunge anche le statistiche dei programmi personalizzati
         boolean isPro = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_PRO"));
 
         if (isPro) {statistiche.addAll(statisticheRepository.getStatistichePersonalizzati(username));}

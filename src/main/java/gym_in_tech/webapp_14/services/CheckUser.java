@@ -5,7 +5,6 @@ import gym_in_tech.webapp_14.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// CheckUser.java
 @Service
 public class CheckUser {
 

@@ -1,6 +1,5 @@
 package gym_in_tech.webapp_14.proxies;
 
-import gym_in_tech.webapp_14.configurations.OpenFeignConfig;
 import gym_in_tech.webapp_14.pojos.Esercizio;
 import gym_in_tech.webapp_14.pojos.Programma;
 import org.springframework.cloud.openfeign.FeignClient;

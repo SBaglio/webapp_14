@@ -52,14 +52,14 @@ public class UserRepository {
 
     @Transactional
     public void addUser(User user) {
-        // Converti birthDate GG/MM/AAAA -> java.sql.Date
+        // Converte birthDate GG/MM/AAAA in java.sql.Date
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         java.sql.Date sqlBirthDate = java.sql.Date.valueOf(LocalDate.parse(user.getBirthDate(), fmt));
 
         // Data di signup
         java.sql.Date sqlSignupDate = java.sql.Date.valueOf(LocalDate.now());
 
-        // INSERT in USERDATA (dati anagrafici)
+        // INSERT in USERDATA
         String sql = "INSERT INTO USERDATA (username, firstName, lastName, birthDate, email, numAllenamenti, signupDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbc.update(sql,
                 user.getUsername(),
@@ -71,7 +71,7 @@ public class UserRepository {
                 sqlSignupDate
         );
 
-        // Codifica password prima di passarla a SecurityUser
+        // Codifica la password prima di passarla al SecurityUser
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // INSERT in USERS e AUTHORITIES gestita da userDetailsManager
@@ -110,7 +110,7 @@ public class UserRepository {
     public int userContaAllenamenti(String username){
         String sql = "SELECT numAllenamenti FROM USERDATA WHERE username = ?";
 
-        // queryForObject esegue la query e si aspetta come risultato un Integer
+        // queryForObject esegue la query e qui si aspetta come risultato un Integer
         return jdbc.queryForObject(sql, Integer.class, username);
 
     }
@@ -142,8 +142,8 @@ public class UserRepository {
         jdbc.update(rimuoviDaUserdata);
 
         String rimuoviDaUsers = "DELETE FROM USERS WHERE enabled = 0 AND username IN (SELECT username FROM AUTHORITIES WHERE authority = 'ROLE_USER_PROVA')";
-        //non serve rimuovere da Authorities dato che abbiamo messo on delete cascade
-        return jdbc.update(rimuoviDaUsers);  //ritona il numero di righe cancellate
+        // Non serve rimuovere da Authorities dato che abbiamo messo on delete cascade
+        return jdbc.update(rimuoviDaUsers);  // ritorna il numero di righe cancellate
     }
 
     public boolean checkPassword(User user, String vecchiaPassword){

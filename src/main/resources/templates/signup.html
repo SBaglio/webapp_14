@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-    <table style="align-self: center";>
+    <table style="align-self: center;">
         <tr><td><a th:href="@{/index}"><img th:src="@{/images/logo.png}" id="logo"> </a><!--logo--></td></tr>
     </table>
 </header>
@@ -59,7 +59,7 @@
     <p id="confirm-msg"></p>
 
 
-    <!-- ===== Selezione piano allenamento con Bootstrap cards ===== -->
+    <!-- Bootstrap cards per selezionare il piano di allenamento -->
     <fieldset style="border: none; padding: 0; margin-bottom: 1.5rem;">
         <legend>Seleziona il tuo piano di allenamento</legend>
         <br>
@@ -135,7 +135,6 @@
             </div>
         </div>
     </fieldset>
-    <!-- ===== Fine selezione piano ===== -->
 
 
     <div class="d-flex justify-content-center gap-5" >
@@ -199,7 +198,7 @@
         }
     }
 
-    // Reset errore data appena l'utente modifica il campo
+    // Resetta l'errore sulla data appena l'utente modifica il campo
     birthDateInput.addEventListener("input", function () {
         birthDateInput.setCustomValidity("");
     });

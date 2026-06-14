@@ -68,12 +68,12 @@ public class SecurityConfig {
 
         // Logout
         http.logout(c ->
-                c.logoutUrl("/perform_logout") // It is the Spring Security logout endpoint
-                        .logoutSuccessUrl("/logout") //Pay attention it is using a GET-redirect under the hood! So, in the Controller you should use @GetMapping
+                c.logoutUrl("/perform_logout") //Spring Security logout endpoint
+                        .logoutSuccessUrl("/logout")
 
         );
 
-        // TO DISABLE CSRF PROTECTION
+        //CSRF PROTECTION disabilitata
         http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();

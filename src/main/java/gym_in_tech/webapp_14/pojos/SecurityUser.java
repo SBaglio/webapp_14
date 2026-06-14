@@ -13,8 +13,6 @@ public class SecurityUser implements UserDetails {
     public SecurityUser(User user) {this.user = user;}
 
     @Override
-    //We take the role of user defined at the signup, we wrap it inside an object of the class
-    //SimpleGrantedAuthority and we put it in a list of jut 1 item
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(user.getRole()));
     }
