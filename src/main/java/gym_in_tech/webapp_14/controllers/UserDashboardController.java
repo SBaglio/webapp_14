@@ -30,15 +30,13 @@ public class UserDashboardController {
     private final ProgrammaRepository programmaRepository;
     private final KCalCalculatorProxy kCalCalculatorProxy;
     private final StatisticaProgrammiRepository statisticheRepository;
-    private final ProgrammiProxy programmiProxy;
 
     @Autowired
-    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, ProgrammiProxy programmiProxy, StatisticaProgrammiRepository statisticheRepository){
+    public UserDashboardController (UserRepository userRepository, ProgrammiProxy programmi, ProgrammaRepository programmaRepository, KCalCalculatorProxy kCalCalculatorProxy, StatisticaProgrammiRepository statisticheRepository){
         this.userRepository=userRepository;
         this.programmi=programmi;
         this.programmaRepository = programmaRepository;
         this.kCalCalculatorProxy = kCalCalculatorProxy;
-        this.programmiProxy = programmiProxy;
         this.statisticheRepository=statisticheRepository;
     }
 
@@ -127,7 +125,7 @@ public class UserDashboardController {
     public String completato(@RequestParam String nomeProgramma, Authentication authentication){
         String username = authentication.getName();
         userRepository.addAllenamento(username);
-        List<Programma> programmiPredefiniti = programmiProxy.getProgrammi();
+        List<Programma> programmiPredefiniti = programmi.getProgrammi();
 
         boolean isPredefinito = programmiPredefiniti.stream().anyMatch(p -> p.getNomeProg().equals(nomeProgramma));
 
