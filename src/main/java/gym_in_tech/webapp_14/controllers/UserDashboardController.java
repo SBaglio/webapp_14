@@ -159,7 +159,7 @@ public class UserDashboardController {
             model.addAttribute("errorMessage", "Hai già creato un programma chiamato '" + programma.getNomeProg() + "'. Scegli un nuovo nome.");
         }
 
-        return "/programmi";
+        return "programmi";
     }
 
 
