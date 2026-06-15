@@ -140,7 +140,7 @@ public class UserDashboardController {
 
 
     @PostMapping("/creaProgramma")
-    public String creaProgramma(@ModelAttribute Programma programma, Authentication authentication, Model model, RedirectAttributes redirectAttributes){
+    public String creaProgramma(@ModelAttribute Programma programma, Authentication authentication, RedirectAttributes redirectAttributes){
 
         float kcal=kCalCalculatorProxy.countKCal(programma);
         programma.setKcal(kcal);
