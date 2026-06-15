@@ -140,7 +140,7 @@ public class UserDashboardController {
 
 
     @PostMapping("/creaProgramma")
-    public String creaProgramma(@ModelAttribute Programma programma, Authentication authentication, Model model){
+    public String creaProgramma(@ModelAttribute Programma programma, Authentication authentication, Model model, RedirectAttributes redirectAttributes){
 
         float kcal=kCalCalculatorProxy.countKCal(programma);
         programma.setKcal(kcal);
@@ -152,14 +152,14 @@ public class UserDashboardController {
                 programmaRepository.aggiungiEsercizio(idProg, es);
             }
 
-            model.addAttribute("messaggioSuccesso", "Programma salvato con successo!");
-            model.addAttribute("kcalCalcolate", kcal);
+            redirectAttributes.addFlashAttribute("messaggioSuccesso", "Programma salvato con successo!");
+            redirectAttributes.addFlashAttribute("kcalCalcolate", kcal);
 
         } catch (DuplicateKeyException e) {   //se l'utente prova ad inserire due programmi personalizzati con lo stesso nome
-            model.addAttribute("errorMessage", "Hai già creato un programma chiamato '" + programma.getNomeProg() + "'. Scegli un nuovo nome.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Hai già creato un programma chiamato '" + programma.getNomeProg() + "'");
         }
 
-        return "programmi";
+        return "redirect:/programmi";
     }
 
 
